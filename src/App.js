@@ -1,25 +1,38 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { Component } from "react";
+import { createGlobalStyle } from "styled-components";
+import { BrowserRouter, Switch, Route } from "react-router-dom";
+import Clothing from "./pages/clothing";
+import Tech from "./pages/tech";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+const Globalstyle = createGlobalStyle`
+                            body {
+                              background: white;
+                              min-height: 100vh;
+                              margin:0;
+                              color:black;
+                              font-family: "Raleway, sans-serif"
+                            }
+`;
+
+class App extends Component {
+  render() {
+    return (
+      <React.Fragment>
+        <Globalstyle />
+        <BrowserRouter>
+          <Switch>
+            <Route exact path="/">
+              <Clothing />
+            </Route>
+
+            <Route exact path="/tech">
+              <Tech />
+            </Route>
+          </Switch>
+        </BrowserRouter>
+      </React.Fragment>
+    );
+  }
 }
 
 export default App;
