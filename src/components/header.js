@@ -1,5 +1,10 @@
 import React, { Component } from "react";
 import styled from "styled-components";
+import { ReactComponent as Logo } from "../assets/logo.svg";
+
+import CartIcon from "./cart-icon/cart-icon.component";
+import CurrencyFilterIcon from "./currency-icon/currency-icon.component";
+import CurrencyDropdown from "./currency-dropdown/currency-dropdown.component";
 
 import { Link as ReactRouterDomLink, withRouter } from "react-router-dom";
 
@@ -10,6 +15,7 @@ const HeaderWrapper = styled.header`
   display: flex;
   padding: 0 16px;
   position: fixed;
+  z-index: 100;
   top: 0;
   background: #ffffff;
 `;
@@ -27,39 +33,22 @@ const Link = ({ isActive, children, ...props }) => {
   return <ReactRouterDomLink {...props}>{children}</ReactRouterDomLink>;
 };
 
-const SvgWrapper = () => {
-  return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="33"
-      height="30"
-      viewBox="0 0 33 30"
-      fill="none"
-      version="1.1"
-    >
-      <path
-        d="M32.0988 28.6014C32.1313 28.9985 31.8211 29.339 31.4268 29.339H1.59438C1.2009 29.339 0.890922 29.0002 0.922082 28.6037L3.06376 1.34718C3.09168 0.992702 3.38426 0.719727 3.73606 0.719727H29.1958C29.5468 0.719727 29.8391 0.991612 29.868 1.34499L32.0988 28.6014Z"
-        fill="url(#paint0_linear_150_1107)"
-      />
-      <defs>
-        <linearGradient
-          id="paint0_linear_150_1107"
-          x1="25.8733"
-          y1="25.3337"
-          x2="7.51325"
-          y2="3.9008"
-          gradientUnits="userSpaceOnUse"
-        >
-          <stop stopColor="#52D67A" />
-          <stop offset="1" stopColor="#5AEE87" />
-        </linearGradient>
-      </defs>
-    </svg>
-  );
-};
+// const SvgWrapper = () => {
+//   return (
+
+//   );
+// };
 
 const LogoContainer = styled.div`
-  margin: auto 50% auto 0;
+  margin: auto 40% auto 0;
+`;
+
+const CurrencyDropDownContainer = styled.div`
+  width: 150px;
+  margin: auto 10% auto 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
 `;
 
 const StyledLink = styled(Link)`
@@ -68,26 +57,40 @@ const StyledLink = styled(Link)`
   text-align: center;
   box-sizing: border-box;
   margin: auto 0;
+  text-decoration: none;
   font-weight: ${(p) => (p.isActive ? "1000" : "200")};
 `;
 
 class Header extends Component {
+  state = {
+    isOpen: false,
+  };
+
+  handleCurrencyToggle() {
+    this.setState({ isOpen: !this.state.isOpen });
+  }
+
   render() {
-    console.log(this.props);
     const { location } = this.props;
+    const { isOpen } = this.state;
     return (
       <HeaderWrapper>
         <Nav>
           <StyledLink to="/" isActive={location.pathname === "/"}>
-            CLOTHING
-          </StyledLink>
-          <StyledLink to="/tech" isActive={location.pathname === "/tech"}>
             TECH
+          </StyledLink>
+          <StyledLink to="/clothes" isActive={location.pathname === "/clothes"}>
+            CLOTHES
           </StyledLink>
         </Nav>
         <LogoContainer>
-          <SvgWrapper />
+          <Logo />
         </LogoContainer>
+        <CurrencyDropDownContainer onClick={() => this.handleCurrencyToggle()}>
+          <CurrencyFilterIcon />
+        </CurrencyDropDownContainer>
+        <CartIcon />
+        {isOpen ? <CurrencyDropdown /> : null}
       </HeaderWrapper>
     );
   }

@@ -1,8 +1,7 @@
 import React, { Component } from "react";
 import PageLayout from "../components/PageLayout";
 import Category from "../category/category";
-
-class Tech extends Component {
+class Clothing extends Component {
   render() {
     const { categories } = this.props;
     const { data } = categories;
@@ -15,4 +14,4 @@ class Tech extends Component {
   }
 }
 
-export default Tech;
+export default Clothing;
