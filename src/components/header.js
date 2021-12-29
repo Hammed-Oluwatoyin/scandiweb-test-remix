@@ -5,7 +5,10 @@ import { ReactComponent as Logo } from "../assets/logo.svg";
 import CartIcon from "./cart-icon/cart-icon.component";
 import CurrencyFilterIcon from "./currency-icon/currency-icon.component";
 import CurrencyDropdown from "./currency-dropdown/currency-dropdown.component";
-
+import CartItemDropdown from "./cart-item-dropdown/cart-item-dropdown.component";
+import { ReactComponent as DollarFilter } from "../assets/dollar-filter.svg";
+import { ReactComponent as EuroFilter } from "../assets/euro-filter.svg";
+import { ReactComponent as YenFilter } from "../assets/yen-filter.svg";
 import { Link as ReactRouterDomLink, withRouter } from "react-router-dom";
 
 const HeaderWrapper = styled.header`
@@ -33,22 +36,20 @@ const Link = ({ isActive, children, ...props }) => {
   return <ReactRouterDomLink {...props}>{children}</ReactRouterDomLink>;
 };
 
-// const SvgWrapper = () => {
-//   return (
-
-//   );
-// };
-
 const LogoContainer = styled.div`
   margin: auto 40% auto 0;
 `;
 
-const CurrencyDropDownContainer = styled.div`
-  width: 150px;
-  margin: auto 10% auto 0;
+const CurrencyDropDownNav = styled.div`
+  width: 25px;
+  margin: 25px 0px;
   display: flex;
   flex-direction: row;
-  justify-content: space-evenly;
+  justify-content: space-between;
+`;
+
+const CartItemDropdownNav = styled.div`
+  margin: 25px 50px;
 `;
 
 const StyledLink = styled(Link)`
@@ -61,18 +62,52 @@ const StyledLink = styled(Link)`
   font-weight: ${(p) => (p.isActive ? "1000" : "200")};
 `;
 
+const options = [
+  { label: "USD", value: "USD", element: <DollarFilter /> },
+  {
+    label: "EURO",
+    value: "EURO",
+    element: <EuroFilter />,
+  },
+  {
+    label: "YEN",
+    value: "YEN",
+    element: <YenFilter />,
+  },
+];
+
 class Header extends Component {
   state = {
-    isOpen: false,
+    isCurrencyDropdownOpen: false,
+    isCartDropdownOpen: false,
   };
 
   handleCurrencyToggle() {
-    this.setState({ isOpen: !this.state.isOpen });
+    if (this.state.isCartDropdownOpen) {
+      this.setState({
+        isCartDropdownOpen: false,
+      });
+    }
+    this.setState({
+      isCurrencyDropdownOpen: !this.state.isCurrencyDropdownOpen,
+    });
+  }
+
+  handleCartToggle() {
+    if (this.state.isCurrencyDropdownOpen) {
+      this.setState({
+        isCurrencyDropdownOpen: false,
+      });
+    }
+
+    this.setState({
+      isCartDropdownOpen: !this.state.isCartDropdownOpen,
+    });
   }
 
   render() {
     const { location } = this.props;
-    const { isOpen } = this.state;
+    const { isCurrencyDropdownOpen, isCartDropdownOpen } = this.state;
     return (
       <HeaderWrapper>
         <Nav>
@@ -86,11 +121,15 @@ class Header extends Component {
         <LogoContainer>
           <Logo />
         </LogoContainer>
-        <CurrencyDropDownContainer onClick={() => this.handleCurrencyToggle()}>
+        <CurrencyDropDownNav onClick={() => this.handleCurrencyToggle()}>
           <CurrencyFilterIcon />
-        </CurrencyDropDownContainer>
-        <CartIcon />
-        {isOpen ? <CurrencyDropdown /> : null}
+        </CurrencyDropDownNav>
+        <CartItemDropdownNav onClick={() => this.handleCartToggle()}>
+          <CartIcon />
+        </CartItemDropdownNav>
+
+        {isCurrencyDropdownOpen ? <CurrencyDropdown options={options} /> : null}
+        {isCartDropdownOpen ? <CartItemDropdown /> : null}
       </HeaderWrapper>
     );
   }

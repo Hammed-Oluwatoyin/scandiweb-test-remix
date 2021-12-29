@@ -8,7 +8,6 @@ import {
   ProductImage,
   ProductName,
   ProductPrice,
-  OutOfStock,
 } from "./categoryElements";
 
 class Category extends Component {

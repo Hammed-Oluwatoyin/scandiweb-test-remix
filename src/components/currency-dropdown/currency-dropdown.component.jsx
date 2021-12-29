@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import styled from "styled-components";
-import { ReactComponent as DollarFilter } from "../../assets/dollar-filter.svg";
+
 
 const CurrencyContainer = styled.div`
     position: absolute;
@@ -9,10 +9,10 @@ const CurrencyContainer = styled.div`
     background-color:#ffffff ;
     padding: 20px;
     top: 80px;
-    right: 180px;
+    right: 40px;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: space-between;
     
     box-shadow: 1px 1px 4px 0px rgba(0, 0, 0, 0.75);
 `
@@ -27,13 +27,22 @@ const CurrencyItem = styled.div`
 
 
 class CurrencyDropdown extends Component  {
+
+   renderedOptions = this.props.options.map((option) => {
+       return(
+           <CurrencyItem  key={option.value}>
+                {option.element}
+           </CurrencyItem>
+       );
+   });
   
     render() {
         return (
             <CurrencyContainer>
-            <CurrencyItem><DollarFilter/></CurrencyItem>
-            <CurrencyItem>EURO</CurrencyItem>
-            <CurrencyItem>JPY</CurrencyItem>
+                
+            
+             {this.renderedOptions}
+            
             </CurrencyContainer>
         )
     }
