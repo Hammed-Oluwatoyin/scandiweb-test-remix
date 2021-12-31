@@ -1,7 +1,7 @@
 import   React, {Component}  from "react";
 import styled from "styled-components";
 
- import {ReactComponent as CurrencyIcon } from '../../assets/currency-icon.svg'
+ import {ReactComponent as ArrowDownIcon } from '../../assets/arrow-down-icon.svg'
  import { ReactComponent as ArrowUpIcon } from "../../assets/arrow-up-icon.svg";
 
  
@@ -10,7 +10,7 @@ import styled from "styled-components";
                                         padding-top: 8px;
 
                                         `
-const StyledArrowUpIcon = styled.div`
+const StyledArrowIcon = styled.div`
                                         padding-top: 8px;
                                         
                                         
@@ -25,12 +25,12 @@ const StyledArrowUpIcon = styled.div`
     return (
       <>
         <StyledCurrencyIcon>
-          <CurrencyIcon />
+          {this.props.selectedCurrency.element}
           
         </StyledCurrencyIcon>
-        <StyledArrowUpIcon>
-          <ArrowUpIcon/>
-        </StyledArrowUpIcon>
+        <StyledArrowIcon>
+         {this.props.isCurrencyDropdownOpen ? <ArrowUpIcon/> : <ArrowDownIcon/> } 
+        </StyledArrowIcon>
        
         
       </>

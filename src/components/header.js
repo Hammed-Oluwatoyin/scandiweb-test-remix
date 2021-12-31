@@ -42,7 +42,7 @@ const LogoContainer = styled.div`
 
 const CurrencyDropDownNav = styled.div`
   width: 25px;
-  margin: 25px 0px;
+  margin: 27px 0px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -80,6 +80,8 @@ class Header extends Component {
   state = {
     isCurrencyDropdownOpen: false,
     isCartDropdownOpen: false,
+    selectedCurrency: options[0],
+    selectedIndex: 0,
   };
 
   handleCurrencyToggle() {
@@ -105,9 +107,28 @@ class Header extends Component {
     });
   }
 
+  ChangeCurrencyDropdownToFalse = () => {
+    this.setState({
+      isCurrencyDropdownOpen: false,
+    });
+  };
+
+  handleChangeSelectedCurrency = (newSelectedCurrency, event, i) => {
+    this.setState({
+      selectedCurrency: newSelectedCurrency,
+      selectedIndex: i,
+      isCurrencyDropdownOpen: false,
+    });
+  };
+
   render() {
     const { location } = this.props;
-    const { isCurrencyDropdownOpen, isCartDropdownOpen } = this.state;
+    const {
+      isCurrencyDropdownOpen,
+      isCartDropdownOpen,
+      selectedCurrency,
+      selectedIndex,
+    } = this.state;
     return (
       <HeaderWrapper>
         <Nav>
@@ -122,13 +143,24 @@ class Header extends Component {
           <Logo />
         </LogoContainer>
         <CurrencyDropDownNav onClick={() => this.handleCurrencyToggle()}>
-          <CurrencyFilterIcon />
+          <CurrencyFilterIcon
+            isCurrencyDropdownOpen={isCurrencyDropdownOpen}
+            selectedCurrency={selectedCurrency}
+          />
         </CurrencyDropDownNav>
         <CartItemDropdownNav onClick={() => this.handleCartToggle()}>
           <CartIcon />
         </CartItemDropdownNav>
 
-        {isCurrencyDropdownOpen ? <CurrencyDropdown options={options} /> : null}
+        {isCurrencyDropdownOpen ? (
+          <CurrencyDropdown
+            selectedCurrency={selectedCurrency}
+            onSelectedCurrencyChange={this.handleChangeSelectedCurrency}
+            options={options}
+            ChangeCurrencyDropdownToFalse={this.ChangeCurrencyDropdownToFalse}
+            selectedIndex={selectedIndex}
+          />
+        ) : null}
         {isCartDropdownOpen ? <CartItemDropdown /> : null}
       </HeaderWrapper>
     );
