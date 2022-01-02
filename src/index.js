@@ -6,6 +6,7 @@ import { ApolloProvider } from "react-apollo";
 import { createHttpLink } from "apollo-link-http";
 import { InMemoryCache } from "apollo-cache-inmemory";
 import { ApolloClient, gql } from "apollo-boost";
+import { CurrencyProvider } from "./Context/CurrencyContext";
 import reportWebVitals from "./reportWebVitals";
 
 const httpLink = createHttpLink({
@@ -56,7 +57,9 @@ const client = new ApolloClient({
 ReactDOM.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
-      <App />
+      <CurrencyProvider>
+        <App />
+      </CurrencyProvider>
     </ApolloProvider>
   </React.StrictMode>,
   document.getElementById("root")

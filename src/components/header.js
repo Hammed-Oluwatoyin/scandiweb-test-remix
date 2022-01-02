@@ -70,8 +70,8 @@ const options = [
     element: <EuroFilter />,
   },
   {
-    label: "YEN",
-    value: "YEN",
+    label: "JPY",
+    value: "JPY",
     element: <YenFilter />,
   },
 ];

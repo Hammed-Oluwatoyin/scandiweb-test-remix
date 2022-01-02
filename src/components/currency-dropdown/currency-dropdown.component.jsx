@@ -1,5 +1,6 @@
 import React, {Component} from "react";
 import styled from "styled-components";
+import { CurrencyContext } from "../../Context/CurrencyContext";
 
 
 const CurrencyContainer = styled.div`
@@ -26,26 +27,31 @@ const CurrencyItem = styled.div`
         background-color: ${(p) => (p.isActive ? "rgba(0, 0, 0, 0.2)" : "null")};
         
          &:hover {
-             background-color: rgba(0, 0, 0, 0.2);;
+             background-color: rgba(0, 0, 0, 0.2);
   }
     `
 
 
 class CurrencyDropdown extends Component  {
 
+   static contextType = CurrencyContext;
+
    
 
 
    renderedOptions = this.props.options.map((option, i) => {
+       const {changeCurrency} = this.context;
        return(
            <CurrencyItem  key={option.value}   isActive={i === this.props.selectedIndex}
-           onClick={(event) => this.props.onSelectedCurrencyChange(option, event, i)}>
+           onClick={(event) => {this.props.onSelectedCurrencyChange(option, event, i); changeCurrency(option.value)}}>
                 {option.element}
            </CurrencyItem>
        );
    });
   
     render() {
+        
+        
         return (
             <CurrencyContainer>
                 
