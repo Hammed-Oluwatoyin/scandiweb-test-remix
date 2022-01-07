@@ -6,7 +6,11 @@ import { StyledCircleIcon } from "../../category/categoryElements";
 class AddItemIcon extends Component {
   render() {
     return (
-      <StyledCircleIcon>
+      <StyledCircleIcon
+        onClick={() => {
+          this.props.addItem(this.props.item);
+        }}
+      >
         <CircleIcon />
       </StyledCircleIcon>
     );

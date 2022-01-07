@@ -7,6 +7,7 @@ import { createHttpLink } from "apollo-link-http";
 import { InMemoryCache } from "apollo-cache-inmemory";
 import { ApolloClient, gql } from "apollo-boost";
 import { CurrencyProvider } from "./Context/CurrencyContext";
+import { resolvers, typeDefs } from "./resolvers";
 import reportWebVitals from "./reportWebVitals";
 
 const httpLink = createHttpLink({
@@ -18,8 +19,15 @@ const cache = new InMemoryCache();
 const client = new ApolloClient({
   link: httpLink,
   cache,
+  typeDefs,
+  resolvers,
 });
 
+client.writeData({
+  data: {
+    cartItems: [],
+  },
+});
 // client
 //   .query({
 //     query: gql`

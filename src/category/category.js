@@ -1,4 +1,5 @@
 import { Component } from "react";
+import { addItemToCart } from "../cart-utils";
 import AddItemIcon from "../components/add-item-icon/add-item-icon";
 import { CurrencyContext } from "../Context/CurrencyContext";
 import {
@@ -10,11 +11,12 @@ import {
   ProductName,
   ProductPrice,
 } from "./categoryElements";
+import { default as ProductContainer } from "../components/product/product.container";
 
 const Currencies = {
   USD: 0,
   EURO: 1,
-  JPY: 2,
+  JPY: 3,
 };
 
 class Category extends Component {
@@ -23,8 +25,8 @@ class Category extends Component {
   render() {
     const { currency } = this.context;
 
-    console.log(Currencies[currency]);
-    console.log(currency);
+    const index = Currencies[currency];
+    console.log(index);
 
     console.log(this.props.data.category.products[0].inStock);
     return (
@@ -32,21 +34,7 @@ class Category extends Component {
         <CategoryName>{this.props.data.category.name}</CategoryName>
         <ProductWrapper>
           {this.props.data.category.products.map((product) => (
-            <ProductCard key={product.id}>
-              {!product.inStock && (
-                <div className="outofstock">OUT OF STOCK</div>
-              )}
-              <ProductImage
-                src={product.gallery[0]}
-                instock={product.inStock}
-              />
-              <AddItemIcon />
-              <ProductName>{product.name}</ProductName>
-              <ProductPrice>
-                <span>$</span>
-                {product.prices[0].amount}
-              </ProductPrice>
-            </ProductCard>
+            <ProductContainer key={product.id} product={product} />
           ))}
         </ProductWrapper>
       </CategoryContainer>

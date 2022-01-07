@@ -5,7 +5,7 @@ import { ReactComponent as Logo } from "../assets/logo.svg";
 import CartIcon from "./cart-icon/cart-icon.component";
 import CurrencyFilterIcon from "./currency-icon/currency-icon.component";
 import CurrencyDropdown from "./currency-dropdown/currency-dropdown.component";
-import CartItemDropdown from "./cart-item-dropdown/cart-item-dropdown.component";
+import CartDropdown from "./cart-dropdown/cart-dropdown.container";
 import { ReactComponent as DollarFilter } from "../assets/dollar-filter.svg";
 import { ReactComponent as EuroFilter } from "../assets/euro-filter.svg";
 import { ReactComponent as YenFilter } from "../assets/yen-filter.svg";
@@ -161,7 +161,7 @@ class Header extends Component {
             selectedIndex={selectedIndex}
           />
         ) : null}
-        {isCartDropdownOpen ? <CartItemDropdown /> : null}
+        {isCartDropdownOpen ? <CartDropdown /> : null}
       </HeaderWrapper>
     );
   }
