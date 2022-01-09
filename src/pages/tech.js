@@ -1,15 +1,28 @@
 import React, { Component } from "react";
+
 import PageLayout from "../components/PageLayout";
-import Category from "../category/category";
+
+import {
+  CategoryName,
+  CategoryContainer,
+  ProductWrapper,
+} from "../GlobalStyles";
+import { default as ProductContainer } from "../components/product/product.container";
 
 class Tech extends Component {
   render() {
-    const { categories } = this.props;
-    const { data } = categories;
+    const { name, products } = this.props.responseData.data.category;
 
     return (
       <PageLayout>
-        <Category data={data} />
+        <CategoryContainer>
+          <CategoryName>{name}</CategoryName>
+          <ProductWrapper>
+            {products.map((product) => (
+              <ProductContainer key={product.id} product={product} />
+            ))}
+          </ProductWrapper>
+        </CategoryContainer>
       </PageLayout>
     );
   }

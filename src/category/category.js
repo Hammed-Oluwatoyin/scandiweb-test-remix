@@ -26,16 +26,16 @@ class Category extends Component {
     const { currency } = this.context;
 
     const index = Currencies[currency];
-    console.log(index);
+    console.log(this.props);
 
-    console.log(this.props.data.category.products[0].inStock);
     return (
       <CategoryContainer>
-        <CategoryName>{this.props.data.category.name}</CategoryName>
+        <CategoryName>{this.props.TechData.name}</CategoryName>
         <ProductWrapper>
-          {this.props.data.category.products.map((product) => (
+          {/* {this.props.data.category.products.map((product) => (
             <ProductContainer key={product.id} product={product} />
-          ))}
+          ))} */}
+          fawaz
         </ProductWrapper>
       </CategoryContainer>
     );

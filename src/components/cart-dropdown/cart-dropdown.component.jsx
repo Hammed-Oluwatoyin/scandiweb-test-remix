@@ -17,8 +17,8 @@ const CartDropdownContainer = styled.div`
     box-shadow: 1px 1px 4px 0px rgba(0, 0, 0, 0.75);
 `
 
-const ItemsSummaryDescription = styled.div`
-                    
+const ItemsSummaryDescriptionContainer = styled.div`
+                    margin-bottom: 20px;
                     
                     ` 
 const CartItemsList =  styled.div`
@@ -47,7 +47,7 @@ class CartDropdown extends Component  {
         console.log(cartItems);
         return (
             <CartDropdownContainer>
-                <ItemsSummaryDescription>My Bag 2 items</ItemsSummaryDescription>
+                <ItemsSummaryDescriptionContainer><b>My Bag , </b>{cartItems.length} items</ItemsSummaryDescriptionContainer>
                 <CartItemsList>
       {cartItems && (
         cartItems.map(cartItem => (

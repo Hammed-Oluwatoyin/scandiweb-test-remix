@@ -1,9 +1,11 @@
 import React, { Component } from "react";
-import { createGlobalStyle } from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
-import { default as clothesPageContainer } from "./components/clothes/clothes.container";
-import { default as techPageContainer } from "./components/tech/tech.container";
+import ClothesPageContainer from "./components/clothes/clothes.container";
+import TechPageContainer from "./components/tech/tech.container";
+
+import Header from "./components/header";
 
 const Globalstyle = createGlobalStyle`
                             body {
@@ -16,18 +18,39 @@ const Globalstyle = createGlobalStyle`
                             }
 `;
 
+const Content = styled.main`
+  margin: 80px auto 0 auto;
+  padding: 0 16px;
+
+  height: 1435px;
+
+  background: "#fff";
+`;
+
 class App extends Component {
   render() {
     return (
       <React.Fragment>
-        <Globalstyle />
-        <BrowserRouter>
-          <Switch>
-            <Route exact path="/" component={techPageContainer} />
+        <Content>
+          <Globalstyle />
 
-            <Route exact path="/clothes" component={clothesPageContainer} />
-          </Switch>
-        </BrowserRouter>
+          <BrowserRouter>
+            <Header />
+            <Switch>
+              <Route
+                exact
+                path="/"
+                render={(props) => <TechPageContainer {...props} />}
+              />
+
+              <Route
+                exact
+                path="/clothes"
+                render={(props) => <ClothesPageContainer {...props} />}
+              />
+            </Switch>
+          </BrowserRouter>
+        </Content>
       </React.Fragment>
     );
   }

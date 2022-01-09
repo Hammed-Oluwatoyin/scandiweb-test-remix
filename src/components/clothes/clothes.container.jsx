@@ -25,7 +25,6 @@ category(input : {title: "clothes"}){
   }
 } 
 }
-
 `
 class clothingPageContainer extends Component {
   render() {
@@ -37,7 +36,7 @@ class clothingPageContainer extends Component {
                 console.log({data});
                 console.log({error});
                 if (loading) return <div>loading...</div>
-                return <Clothes categories = {{data}} />
+                return <Clothes responseData = {{data}} />
             }}
     </Query>
     );

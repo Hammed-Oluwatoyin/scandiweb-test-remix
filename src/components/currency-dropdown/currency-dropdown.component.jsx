@@ -1,6 +1,9 @@
 import React, {Component} from "react";
 import styled from "styled-components";
 import { CurrencyContext } from "../../Context/CurrencyContext";
+import { ReactComponent as DollarFilter } from "../../assets/dollar-filter.svg";
+import { ReactComponent as EuroFilter } from "../../assets/euro-filter.svg";
+import { ReactComponent as YenFilter } from "../../assets/yen-filter.svg";
 
 
 const CurrencyContainer = styled.div`
@@ -32,6 +35,22 @@ const CurrencyItem = styled.div`
     `
 
 
+
+const options = [
+  { label: "USD", value: "USD", element: <DollarFilter /> },
+  {
+    label: "EURO",
+    value: "EURO",
+    element: <EuroFilter />,
+  },
+  {
+    label: "JPY",
+    value: "JPY",
+    element: <YenFilter />,
+  },
+];
+
+
 class CurrencyDropdown extends Component  {
 
    static contextType = CurrencyContext;
@@ -39,7 +58,7 @@ class CurrencyDropdown extends Component  {
    
 
 
-   renderedOptions = this.props.options.map((option, i) => {
+   renderedOptions = options.map((option, i) => {
        const {changeCurrency} = this.context;
        return(
            <CurrencyItem  key={option.value}   isActive={i === this.props.selectedIndex}

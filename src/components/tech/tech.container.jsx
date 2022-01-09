@@ -25,7 +25,6 @@ category(input : {title: "tech"}){
   }
 } 
 }
-
 `
 class techPageContainer extends Component {
   render() {
@@ -37,7 +36,7 @@ class techPageContainer extends Component {
                 console.log({data});
                 console.log({error});
                 if (loading) return <div>loading...</div>
-                return <Tech categories = {{data}} />
+                return <Tech responseData = {{data}} />
             }}
     </Query>
     );

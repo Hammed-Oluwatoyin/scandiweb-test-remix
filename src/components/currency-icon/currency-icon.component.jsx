@@ -22,6 +22,8 @@ const StyledArrowIcon = styled.div`
  
  class CurrencyFilter extends Component {
   render() {
+
+    console.log(this.props)
     return (
       <>
         <StyledCurrencyIcon>

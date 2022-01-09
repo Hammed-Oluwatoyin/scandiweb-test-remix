@@ -1,14 +1,15 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import { ReactComponent as Logo } from "../assets/logo.svg";
+import { ReactComponent as DollarFilter } from "../assets/dollar-filter.svg";
+import { ReactComponent as EuroFilter } from "../assets/euro-filter.svg";
+import { ReactComponent as YenFilter } from "../assets/yen-filter.svg";
 
 import CartIcon from "./cart-icon/cart-icon.component";
 import CurrencyFilterIcon from "./currency-icon/currency-icon.component";
 import CurrencyDropdown from "./currency-dropdown/currency-dropdown.component";
 import CartDropdown from "./cart-dropdown/cart-dropdown.container";
-import { ReactComponent as DollarFilter } from "../assets/dollar-filter.svg";
-import { ReactComponent as EuroFilter } from "../assets/euro-filter.svg";
-import { ReactComponent as YenFilter } from "../assets/yen-filter.svg";
+
 import { Link as ReactRouterDomLink, withRouter } from "react-router-dom";
 
 const HeaderWrapper = styled.header`
@@ -84,7 +85,7 @@ class Header extends Component {
     selectedIndex: 0,
   };
 
-  handleCurrencyToggle() {
+  handleCurrencyToggle = () => {
     if (this.state.isCartDropdownOpen) {
       this.setState({
         isCartDropdownOpen: false,
@@ -93,9 +94,9 @@ class Header extends Component {
     this.setState({
       isCurrencyDropdownOpen: !this.state.isCurrencyDropdownOpen,
     });
-  }
+  };
 
-  handleCartToggle() {
+  handleCartToggle = () => {
     if (this.state.isCurrencyDropdownOpen) {
       this.setState({
         isCurrencyDropdownOpen: false,
@@ -105,7 +106,7 @@ class Header extends Component {
     this.setState({
       isCartDropdownOpen: !this.state.isCartDropdownOpen,
     });
-  }
+  };
 
   ChangeCurrencyDropdownToFalse = () => {
     this.setState({
@@ -120,7 +121,6 @@ class Header extends Component {
       isCurrencyDropdownOpen: false,
     });
   };
-
   render() {
     const { location } = this.props;
     const {
@@ -129,6 +129,7 @@ class Header extends Component {
       selectedCurrency,
       selectedIndex,
     } = this.state;
+
     return (
       <HeaderWrapper>
         <Nav>
@@ -144,7 +145,7 @@ class Header extends Component {
         </LogoContainer>
         <CurrencyDropDownNav onClick={() => this.handleCurrencyToggle()}>
           <CurrencyFilterIcon
-            isCurrencyDropdownOpen={isCurrencyDropdownOpen}
+            isCurrencyDropdownOpen={this.isCurrencyDropdownOpen}
             selectedCurrency={selectedCurrency}
           />
         </CurrencyDropDownNav>
@@ -156,7 +157,6 @@ class Header extends Component {
           <CurrencyDropdown
             selectedCurrency={selectedCurrency}
             onSelectedCurrencyChange={this.handleChangeSelectedCurrency}
-            options={options}
             ChangeCurrencyDropdownToFalse={this.ChangeCurrencyDropdownToFalse}
             selectedIndex={selectedIndex}
           />
