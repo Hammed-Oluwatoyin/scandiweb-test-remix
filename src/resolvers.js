@@ -1,4 +1,8 @@
-import { addItemToCart } from "./cart-utils";
+import {
+  addProductToCart,
+  removeProductFromCart,
+  clearProductFromCart,
+} from "./cart-utils";
 import { gql } from "apollo-boost";
 
 export const typeDefs = gql`
@@ -7,31 +11,62 @@ export const typeDefs = gql`
   }
 
   extend type Mutation {
-    AddItemToCart(product: Product!): [Product]!
+    AddProductToCart(product: Product!): [Product]!
+    RemoveProductFromCart(product: Product!): [Product]!
+    ClearProductFromCart(product: Product!): [Product]!
   }
 `;
 
-const GET_CART_ITEMS = gql`
+const GET_CART_PRODUCTS = gql`
   {
-    cartItems @client
+    cartProducts @client
   }
 `;
 
 export const resolvers = {
   Mutation: {
-    addItemToCart: (_root, { product }, { cache }) => {
-      const { cartItems } = cache.readQuery({
-        query: GET_CART_ITEMS,
+    addProductToCart: (_root, { product }, { cache }) => {
+      const { cartProducts } = cache.readQuery({
+        query: GET_CART_PRODUCTS,
       });
 
-      const newCartItems = addItemToCart(cartItems, product);
+      const newCartProducts = addProductToCart(cartProducts, product);
 
       cache.writeQuery({
-        query: GET_CART_ITEMS,
-        data: { cartItems: newCartItems },
+        query: GET_CART_PRODUCTS,
+        data: { cartProducts: newCartProducts },
       });
 
-      return newCartItems;
+      return newCartProducts;
+    },
+    removeProductFromCart: (_root, { product }, { cache }) => {
+      const { cartProducts } = cache.readQuery({
+        query: GET_CART_PRODUCTS,
+      });
+
+      const newCartProducts = removeProductFromCart(cartProducts, product);
+
+      cache.writeQuery({
+        query: GET_CART_PRODUCTS,
+        data: { cartProducts: newCartProducts },
+      });
+
+      return newCartProducts;
+    },
+
+    clearProductFromCart: (_root, { product }, { cache }) => {
+      const { cartProducts } = cache.readQuery({
+        query: GET_CART_PRODUCTS,
+      });
+
+      const newCartProducts = clearProductFromCart(cartProducts, product);
+
+      cache.writeQuery({
+        query: GET_CART_PRODUCTS,
+        data: { cartProducts: newCartProducts },
+      });
+
+      return newCartProducts;
     },
   },
 };

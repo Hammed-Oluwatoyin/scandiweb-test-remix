@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import styled from "styled-components";
-import CartItem from "../cart-item/cart-item.component";
+import {default as CartItem  } from "../cart-item/cart-item.container";
 
 const CartDropdownContainer = styled.div`
       position: absolute;
@@ -43,15 +43,15 @@ class CartDropdown extends Component  {
   
     render() {
         
-        const {cartItems} = this.props;
-        console.log(cartItems);
+        const {cartProducts} = this.props;
+        console.log(cartProducts);
         return (
             <CartDropdownContainer>
-                <ItemsSummaryDescriptionContainer><b>My Bag , </b>{cartItems.length} items</ItemsSummaryDescriptionContainer>
+                <ItemsSummaryDescriptionContainer><b>My Bag , </b>{cartProducts.length} items</ItemsSummaryDescriptionContainer>
                 <CartItemsList>
-      {cartItems && (
-        cartItems.map(cartItem => (
-          <CartItem key={cartItem.id} cartItem={cartItem} />
+      {cartProducts && (
+        cartProducts.map(cartProduct => (
+          <CartItem key={cartProduct.id} cartProduct={cartProduct} />
         ))
       ) }
     </CartItemsList>

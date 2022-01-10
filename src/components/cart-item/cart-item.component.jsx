@@ -46,19 +46,24 @@ const  CartItemContainer =  styled.div`
                                       font-weight: bold;
                                       padding-left: 8px;
                                     `
+ const SqaurePlusIconWrapper = styled.div`
+            padding: auto;
+ `
+ const SquareMinusIconWrapper = styled.div`
+            padding: auto;`
 
 
 
 const CartItem = (props) => {
 
     
-
+ console.log(props)
     return (
   
     
     <CartItemContainer >
       <TitlePriceSizeContainer>
-        <span>{props.cartItem.name}</span>
+        <span>{props.cartProduct.name}</span>
         <div>$50.00</div>
         <SizeContainer>
           <SmallSizeIcon/> 
@@ -67,11 +72,13 @@ const CartItem = (props) => {
        
       </TitlePriceSizeContainer>
      <PlusQuantityMinusContainer>
-          <SquarePlusIcon/>
-          <QuantityNumberContainer>1</QuantityNumberContainer>
-          <SquareMinusIcon/>
+       <SqaurePlusIconWrapper  onClick={() => {props.addProduct(props.cartProduct)}}><SquarePlusIcon/></SqaurePlusIconWrapper>
+          
+          <QuantityNumberContainer >{props.cartProduct.quantity}</QuantityNumberContainer>
+          <SquareMinusIconWrapper onClick={() => {props.removeProduct(props.cartProduct)}}> <SquareMinusIcon/></SquareMinusIconWrapper>
+         
       </PlusQuantityMinusContainer>
-       <ImageContainer src={props.cartItem.gallery[0]}/>  
+       <ImageContainer src={props.cartProduct.gallery[0]}/>  
     
     </CartItemContainer>
   

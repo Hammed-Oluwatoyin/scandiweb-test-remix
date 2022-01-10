@@ -8,7 +8,7 @@ import CartDropdown from './cart-dropdown.component';
 
 const GET_CART_ITEMS = gql`
   {
-    cartItems @client
+    cartProducts @client
   }
 `;
 
@@ -16,12 +16,12 @@ const CartDropdownContainer = () => (
   
     
       <Query query={GET_CART_ITEMS}>
-        {({ data: { cartItems } }) => {
-            console.log(cartItems);
+        {({ data: { cartProducts } }) => {
+            console.log(cartProducts);
             
             return (
           <CartDropdown
-            cartItems={cartItems}
+            cartProducts={cartProducts}
             
           />
         )}}

@@ -1,47 +1,50 @@
-export const addItemToCart = (cartItems, cartItemToAdd) => {
-  const existingCartItem = cartItems.find(
-    (cartItem) => cartItem.id === cartItemToAdd.id
+export const addProductToCart = (cartProducts, cartProductToAdd) => {
+  const existingCartProduct = cartProducts.find(
+    (cartProduct) => cartProduct.id === cartProductToAdd.id
   );
 
-  if (existingCartItem) {
-    return cartItems.map((cartItem) =>
-      cartItem.id === cartItemToAdd.id
-        ? { ...cartItem, quantity: cartItem.quantity + 1 }
-        : cartItem
+  if (existingCartProduct) {
+    return cartProducts.map((cartProduct) =>
+      cartProduct.id === cartProductToAdd.id
+        ? { ...cartProduct, quantity: cartProduct.quantity + 1 }
+        : cartProduct
     );
   }
 
-  return [{ ...cartItemToAdd, quantity: 1 }, ...cartItems];
+  return [{ ...cartProductToAdd, quantity: 1 }, ...cartProducts];
 };
 
-export const removeItemFromCart = (cartItems, cartItemToRemove) => {
-  const existingCartItem = cartItems.find(
-    (cartItem) => cartItem.id === cartItemToRemove.id
+export const removeProductFromCart = (cartProducts, cartProductToRemove) => {
+  const existingCartProduct = cartProducts.find(
+    (cartProduct) => cartProduct.id === cartProductToRemove.id
   );
 
-  if (existingCartItem.quantity === 1) {
-    return cartItems.filter((cartItem) => cartItem.id !== cartItemToRemove.id);
+  if (existingCartProduct.quantity === 1) {
+    return cartProducts.filter(
+      (cartProduct) => cartProduct.id !== cartProductToRemove.id
+    );
   }
 
-  return cartItems.map((cartItem) =>
-    cartItem.id === cartItemToRemove.id
-      ? { ...cartItem, quantity: cartItem.quantity - 1 }
-      : cartItem
+  return cartProducts.map((cartProduct) =>
+    cartProduct.id === cartProductToRemove.id
+      ? { ...cartProduct, quantity: cartProduct.quantity - 1 }
+      : cartProduct
   );
 };
 
-export const getCartItemCount = (cartItems) =>
-  cartItems.reduce(
-    (accumalatedQuantity, cartItem) => accumalatedQuantity + cartItem.quantity,
+export const getCartItemCount = (cartProducts) =>
+  cartProducts.reduce(
+    (accumalatedQuantity, cartProduct) =>
+      accumalatedQuantity + cartProduct.quantity,
     0
   );
 
-export const getCartTotal = (cartItems) =>
-  cartItems.reduce(
-    (accumalatedQuantity, cartItem) =>
-      accumalatedQuantity + cartItem.quantity * cartItem.price,
+export const getCartTotal = (cartProducts) =>
+  cartProducts.reduce(
+    (accumalatedQuantity, cartProduct) =>
+      accumalatedQuantity + cartProduct.quantity * cartProduct.price,
     0
   );
 
-export const clearItemFromCart = (cartItems, item) =>
-  cartItems.filter((cartItem) => cartItem.id !== item.id);
+export const clearProductFromCart = (cartProducts, item) =>
+  cartProducts.filter((cartProduct) => cartProduct.id !== item.id);

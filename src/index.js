@@ -26,7 +26,7 @@ const client = new ApolloClient({
 
 client.writeData({
   data: {
-    cartItems: [],
+    cartProducts: [],
   },
 });
 // client
