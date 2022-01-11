@@ -40,11 +40,14 @@ export const getCartItemCount = (cartProducts) =>
   );
 
 export const getCartTotal = (cartProducts) =>
-  cartProducts.reduce(
-    (accumalatedQuantity, cartProduct) =>
-      accumalatedQuantity + cartProduct.quantity * cartProduct.price,
-    0
-  );
+  cartProducts
+    .reduce(
+      (accumalatedQuantity, cartProduct) =>
+        accumalatedQuantity +
+        cartProduct.quantity * cartProduct.prices[0].amount,
+      0
+    )
+    .toFixed(2);
 
 export const clearProductFromCart = (cartProducts, item) =>
   cartProducts.filter((cartProduct) => cartProduct.id !== item.id);
