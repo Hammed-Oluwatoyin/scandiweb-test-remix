@@ -5,7 +5,7 @@ import { ReactComponent as DollarFilter } from "../assets/dollar-filter.svg";
 import { ReactComponent as EuroFilter } from "../assets/euro-filter.svg";
 import { ReactComponent as YenFilter } from "../assets/yen-filter.svg";
 
-import CartIcon from "./cart-icon/cart-icon.component";
+import CartIconContainer from "./cart-icon/cart-icon.container";
 import CurrencyFilterIcon from "./currency-icon/currency-icon.component";
 import CurrencyDropdown from "./currency-dropdown/currency-dropdown.component";
 import CartDropdown from "./cart-dropdown/cart-dropdown.container";
@@ -43,6 +43,7 @@ const LogoContainer = styled.div`
 
 const CurrencyDropDownNav = styled.div`
   width: 25px;
+  position: relative;
   margin: 27px 0px;
   display: flex;
   flex-direction: row;
@@ -122,13 +123,14 @@ class Header extends Component {
     });
   };
   render() {
-    const { location } = this.props;
+    const { location, responseData } = this.props;
     const {
       isCurrencyDropdownOpen,
       isCartDropdownOpen,
       selectedCurrency,
       selectedIndex,
     } = this.state;
+    console.log(responseData);
 
     return (
       <HeaderWrapper>
@@ -150,7 +152,7 @@ class Header extends Component {
           />
         </CurrencyDropDownNav>
         <CartItemDropdownNav onClick={() => this.handleCartToggle()}>
-          <CartIcon />
+          <CartIconContainer />
         </CartItemDropdownNav>
 
         {isCurrencyDropdownOpen ? (

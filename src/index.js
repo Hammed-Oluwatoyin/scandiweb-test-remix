@@ -28,6 +28,7 @@ client.writeData({
   data: {
     cartProducts: [],
     cartTotal: 0,
+    productCount: 0,
   },
 });
 // client

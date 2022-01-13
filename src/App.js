@@ -35,7 +35,6 @@ class App extends Component {
           <Globalstyle />
 
           <BrowserRouter>
-            <Header />
             <Switch>
               <Route
                 exact

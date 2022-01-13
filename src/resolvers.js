@@ -2,6 +2,7 @@ import {
   addProductToCart,
   removeProductFromCart,
   clearProductFromCart,
+  getCartProductCount,
   getCartTotal,
 } from "./cart-utils";
 import { gql } from "apollo-boost";
@@ -30,6 +31,12 @@ const GET_CART_TOTAL = gql`
   }
 `;
 
+const GET_PRODUCT_COUNT = gql`
+  {
+    productCount @client
+  }
+`;
+
 export const resolvers = {
   Mutation: {
     addProductToCart: (_root, { product }, { cache }) => {
@@ -47,6 +54,11 @@ export const resolvers = {
       cache.writeQuery({
         query: GET_CART_PRODUCTS,
         data: { cartProducts: newCartProducts },
+      });
+
+      cache.writeQuery({
+        query: GET_PRODUCT_COUNT,
+        data: { productCount: getCartProductCount(newCartProducts) },
       });
 
       return newCartProducts;
@@ -68,6 +80,11 @@ export const resolvers = {
         data: { cartProducts: newCartProducts },
       });
 
+      cache.writeQuery({
+        query: GET_PRODUCT_COUNT,
+        data: { productCount: getCartProductCount(newCartProducts) },
+      });
+
       return newCartProducts;
     },
 
@@ -86,6 +103,11 @@ export const resolvers = {
       cache.writeQuery({
         query: GET_CART_PRODUCTS,
         data: { cartProducts: newCartProducts },
+      });
+
+      cache.writeQuery({
+        query: GET_PRODUCT_COUNT,
+        data: { productCount: getCartProductCount(newCartProducts) },
       });
 
       return newCartProducts;

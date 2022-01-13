@@ -32,7 +32,7 @@ export const removeProductFromCart = (cartProducts, cartProductToRemove) => {
   );
 };
 
-export const getCartItemCount = (cartProducts) =>
+export const getCartProductCount = (cartProducts) =>
   cartProducts.reduce(
     (accumalatedQuantity, cartProduct) =>
       accumalatedQuantity + cartProduct.quantity,
