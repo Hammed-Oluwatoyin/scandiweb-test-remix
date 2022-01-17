@@ -10,7 +10,7 @@ const CartBadge = styled.div`
   width: 20px;
 
   height: 20px;
-  right: 54px;
+  right: 55px;
   top: 23px;
   background-color: black;
   position: absolute;
@@ -29,6 +29,10 @@ const CartBadgeNumber = styled.div`
   font-size: 11.5px;
 `;
 
+const CartWrapper = styled.div`
+            margin: 0;
+`
+
 
 
 
@@ -39,13 +43,13 @@ const CartBadgeNumber = styled.div`
     const {data} = this.props
     console.log(data);
     return (
-      <>
+      <CartWrapper onClick = {() => this.props.toggleCartDropdown()} >
       <StyledCartIcon>
         <ShoppingIcon />
       </StyledCartIcon>
        <CartBadge />
-        <CartBadgeNumber>{data.data.productCount}</CartBadgeNumber>
-      </>
+        <CartBadgeNumber>10</CartBadgeNumber>
+      </CartWrapper>
       
     );
   }

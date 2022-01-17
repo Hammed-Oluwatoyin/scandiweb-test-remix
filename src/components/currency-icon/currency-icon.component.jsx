@@ -26,7 +26,7 @@ const StyledArrowIcon = styled.div`
     console.log(this.props)
     return (
       <>
-        <StyledCurrencyIcon>
+        <StyledCurrencyIcon onClick = {() => this.props.toggleCurrencyDropdown()}>
           {this.props.selectedCurrency.element}
           
         </StyledCurrencyIcon>

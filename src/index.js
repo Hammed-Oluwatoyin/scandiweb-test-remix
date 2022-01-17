@@ -29,6 +29,8 @@ client.writeData({
     cartProducts: [],
     cartTotal: 0,
     productCount: 0,
+    cartDropdownHidden: false,
+    currencyDropdownHidden: false,
   },
 });
 // client

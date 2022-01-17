@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import styled from "styled-components";
-import Header from "./header";
+import HeaderContainer from "./header/header.container";
 
 const Content = styled.main`
   margin: 80px auto 0 auto;
@@ -16,7 +16,7 @@ class PageLayout extends Component {
   render() {
     return (
       <>
-        <Header />
+        <HeaderContainer />
         <Content>{this.props.children}</Content>
       </>
     );

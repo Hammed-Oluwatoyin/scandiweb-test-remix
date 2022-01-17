@@ -6,7 +6,7 @@ import { ReactComponent as EuroFilter } from "../assets/euro-filter.svg";
 import { ReactComponent as YenFilter } from "../assets/yen-filter.svg";
 
 import CartIconContainer from "./cart-icon/cart-icon.container";
-import CurrencyFilterIcon from "./currency-icon/currency-icon.component";
+import CurrencyIcon from "./currency-icon/currency-icon.container";
 import CurrencyDropdown from "./currency-dropdown/currency-dropdown.component";
 import CartDropdown from "./cart-dropdown/cart-dropdown.container";
 
@@ -81,7 +81,7 @@ const options = [
 class Header extends Component {
   state = {
     isCurrencyDropdownOpen: false,
-    isCartDropdownOpen: false,
+
     selectedCurrency: options[0],
     selectedIndex: 0,
   };
@@ -97,17 +97,17 @@ class Header extends Component {
     });
   };
 
-  handleCartToggle = () => {
-    if (this.state.isCurrencyDropdownOpen) {
-      this.setState({
-        isCurrencyDropdownOpen: false,
-      });
-    }
+  // handleCartToggle = () => {
+  //   if (this.state.isCurrencyDropdownOpen) {
+  //     this.setState({
+  //       isCurrencyDropdownOpen: false,
+  //     });
+  //   }
 
-    this.setState({
-      isCartDropdownOpen: !this.state.isCartDropdownOpen,
-    });
-  };
+  //   this.setState({
+  //     isCartDropdownOpen: !this.state.isCartDropdownOpen,
+  //   });
+  // };
 
   ChangeCurrencyDropdownToFalse = () => {
     this.setState({
@@ -145,17 +145,17 @@ class Header extends Component {
         <LogoContainer>
           <Logo />
         </LogoContainer>
-        <CurrencyDropDownNav onClick={() => this.handleCurrencyToggle()}>
-          <CurrencyFilterIcon
+        <CurrencyDropDownNav>
+          <CurrencyIcon
             isCurrencyDropdownOpen={this.isCurrencyDropdownOpen}
             selectedCurrency={selectedCurrency}
           />
         </CurrencyDropDownNav>
-        <CartItemDropdownNav onClick={() => this.handleCartToggle()}>
+        <CartItemDropdownNav>
           <CartIconContainer />
         </CartItemDropdownNav>
 
-        {isCurrencyDropdownOpen ? (
+        {responseData.data.currencyDropdownHidden ? (
           <CurrencyDropdown
             selectedCurrency={selectedCurrency}
             onSelectedCurrencyChange={this.handleChangeSelectedCurrency}
@@ -163,7 +163,7 @@ class Header extends Component {
             selectedIndex={selectedIndex}
           />
         ) : null}
-        {isCartDropdownOpen ? <CartDropdown /> : null}
+        {responseData.data.cartDropdownHidden ? <CartDropdown /> : null}
       </HeaderWrapper>
     );
   }

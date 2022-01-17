@@ -13,6 +13,8 @@ export const typeDefs = gql`
   }
 
   extend type Mutation {
+    ToggleCartDropdown: Boolean!
+    ToggleCurrencyDropdown: Boolean!
     AddProductToCart(product: Product!): [Product]!
     RemoveProductFromCart(product: Product!): [Product]!
     ClearProductFromCart(product: Product!): [Product]!
@@ -36,9 +38,64 @@ const GET_PRODUCT_COUNT = gql`
     productCount @client
   }
 `;
+const GET_CART_DROPDOWN_HIDDEN = gql`
+  {
+    cartDropdownHidden @client
+  }
+`;
+
+const GET_CURRENCY_DROPDOWN_HIDDEN = gql`
+  {
+    currencyDropdownHidden @client
+  }
+`;
+
+const GET_CURRENCY_AND_CART_DROPDOWN_HIDDEN = gql`
+  {
+    currencyDropdownHidden @client
+    cartDropdownHidden @client
+  }
+`;
 
 export const resolvers = {
   Mutation: {
+    toggleCurrencyDropdown: (_root, _args, { cache }) => {
+      const { currencyDropdownHidden, cartDropdownHidden } = cache.readQuery({
+        query: GET_CURRENCY_AND_CART_DROPDOWN_HIDDEN,
+      });
+
+      if (cartDropdownHidden) {
+        cache.writeQuery({
+          query: GET_CART_DROPDOWN_HIDDEN,
+          data: { cartDropdownHidden: !cartDropdownHidden },
+        });
+      }
+      cache.writeQuery({
+        query: GET_CURRENCY_DROPDOWN_HIDDEN,
+        data: { currencyDropdownHidden: !currencyDropdownHidden },
+      });
+
+      return !currencyDropdownHidden;
+    },
+
+    toggleCartDropdown: (_root, _args, { cache }) => {
+      const { cartDropdownHidden, currencyDropdownHidden } = cache.readQuery({
+        query: GET_CURRENCY_AND_CART_DROPDOWN_HIDDEN,
+      });
+
+      if (currencyDropdownHidden) {
+        cache.writeQuery({
+          query: GET_CURRENCY_DROPDOWN_HIDDEN,
+          data: { currencyDropdownHidden: !currencyDropdownHidden },
+        });
+      }
+      cache.writeQuery({
+        query: GET_CART_DROPDOWN_HIDDEN,
+        data: { cartDropdownHidden: !cartDropdownHidden },
+      });
+
+      return !cartDropdownHidden;
+    },
     addProductToCart: (_root, { product }, { cache }) => {
       const { cartProducts } = cache.readQuery({
         query: GET_CART_PRODUCTS,
