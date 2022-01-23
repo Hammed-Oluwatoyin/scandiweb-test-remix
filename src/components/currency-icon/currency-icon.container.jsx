@@ -1,5 +1,6 @@
-import { Query, Mutation } from "react-apollo";
+import {  graphql } from "react-apollo";
 import { gql } from "apollo-boost";
+import compose from "lodash.flowright";
 
 import CurrencyIcon from "./currency-icon.component.jsx";
 
@@ -9,12 +10,20 @@ const TOGGLE_CURRENCY_DROPDOWN = gql`
   }
 `;
 
-const CurrencyIconContainer = (props) => (
-  <Mutation mutation={TOGGLE_CURRENCY_DROPDOWN}>
-    {(toggleCurrencyDropdown) => (
-      <CurrencyIcon {...props} toggleCurrencyDropdown={toggleCurrencyDropdown} />
-    )}
-  </Mutation>
+
+const GET_CURRENCY_DROPDOWN_HIDDEN = gql`
+  {
+    currencyDropdownHidden @client
+  }
+`;
+
+const CurrencyIconContainer = ({data : {currencyDropdownHidden}, toggleCurrencyDropdown}) => (
+      
+      <CurrencyIcon currencyDropdownHidden={currencyDropdownHidden}  toggleCurrencyDropdown={toggleCurrencyDropdown} />
+
+  
 );
 
-export default CurrencyIconContainer;
+export default compose(
+                        graphql(TOGGLE_CURRENCY_DROPDOWN , {name : 'toggleCurrencyDropdown'}),
+                        graphql(GET_CURRENCY_DROPDOWN_HIDDEN))(CurrencyIconContainer);

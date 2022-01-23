@@ -40,15 +40,15 @@ const CartWrapper = styled.div`
 
   
   render() {
-    const {data} = this.props
-    console.log(data);
+              
+    console.log(this.props);
     return (
       <CartWrapper onClick = {() => this.props.toggleCartDropdown()} >
       <StyledCartIcon>
         <ShoppingIcon />
       </StyledCartIcon>
        <CartBadge />
-        <CartBadgeNumber>10</CartBadgeNumber>
+        <CartBadgeNumber>{this.props.productCount}</CartBadgeNumber>
       </CartWrapper>
       
     );

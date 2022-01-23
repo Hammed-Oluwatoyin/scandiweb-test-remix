@@ -9,7 +9,7 @@ import Header from '../header';
 
 
 
-const GET_CLIENT_PROPERTIES = gql`
+const GET_HIDDEN_PROPERTIES = gql`
   {
     cartDropdownHidden @client
     currencyDropdownHidden @client
@@ -18,7 +18,7 @@ const GET_CLIENT_PROPERTIES = gql`
 `;
 
 const HeaderContainer = () => (
-<Query query={GET_CLIENT_PROPERTIES}>
+<Query query={GET_HIDDEN_PROPERTIES}>
             {({ data})  => {
                 
                 console.log({data});

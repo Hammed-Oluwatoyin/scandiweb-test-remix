@@ -1,6 +1,7 @@
 import React, {Component} from "react";
 import styled, {css} from "styled-components";
-import {default as CartItem  } from "../cart-item/cart-item.container";
+import  CartItemContainer   from "../cart-dropdown-item/cart-item.container";
+import { withRouter } from 'react-router-dom';
 
 const CartDropdownContainer = styled.div`
       position: absolute;
@@ -87,7 +88,7 @@ const Button = styled.button`
 class CartDropdown extends Component  {
   
     render() {
-        
+        console.log(this.props);
         const {cartProducts, cartTotal} = this.props;
         console.log(cartProducts);
         return (
@@ -96,7 +97,7 @@ class CartDropdown extends Component  {
                 <CartItemsList>
       {cartProducts && (
         cartProducts.map(cartProduct => (
-          <CartItem key={cartProduct.id} cartProduct={cartProduct} />
+          <CartItemContainer key={cartProduct.id} cartProduct={cartProduct} />
         ))
       ) }
     </CartItemsList>
@@ -106,7 +107,11 @@ class CartDropdown extends Component  {
                 </TotalItemsDescription>
                 <ButtonsContainer>
                   <Button  black>VIEWBAG</Button>
-                  <Button  green>CHECKOUT</Button>
+                  <Button    onClick={() => {
+        this.props.history.push('/cart')
+        this.props.toggleCartDropdown();
+        
+      }} green>CHECKOUT</Button>
                   </ButtonsContainer>
           
             </CartDropdownContainer>
@@ -114,4 +119,4 @@ class CartDropdown extends Component  {
     }
 }
 
-export default  CartDropdown;
+export default withRouter(CartDropdown);

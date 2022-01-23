@@ -4,8 +4,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 
 import ClothesPageContainer from "./components/clothes/clothes.container";
 import TechPageContainer from "./components/tech/tech.container";
-
-import Header from "./components/header";
+import CartPageContainer from "./components/cart-page-container/cart-page-container";
 
 const Globalstyle = createGlobalStyle`
                             body {
@@ -46,6 +45,12 @@ class App extends Component {
                 exact
                 path="/clothes"
                 render={(props) => <ClothesPageContainer {...props} />}
+              />
+
+              <Route
+                exact
+                path="/cart"
+                render={(props) => <CartPageContainer {...props} />}
               />
             </Switch>
           </BrowserRouter>

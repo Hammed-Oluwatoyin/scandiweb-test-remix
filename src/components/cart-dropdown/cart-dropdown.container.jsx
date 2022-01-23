@@ -1,8 +1,14 @@
 import React from 'react';
-import { Query } from 'react-apollo';
+import { Query, Mutation } from 'react-apollo';
 import { gql } from 'apollo-boost';
 
 import CartDropdown from './cart-dropdown.component';
+
+const TOGGLE_CART_DROPDOWN = gql`
+  mutation ToggleCartDropdown {
+    toggleCartDropdown @client
+  }
+`;
 
 
 
@@ -14,9 +20,11 @@ const GET_CART_PRODUCTS_AND_TOTAL = gql`
 `;
 
 const CartDropdownContainer = () => (
-  
-    
-      <Query query={GET_CART_PRODUCTS_AND_TOTAL}>
+
+
+   <Mutation mutation={TOGGLE_CART_DROPDOWN}>
+    {(toggleCartDropdown) => (
+       <Query query={GET_CART_PRODUCTS_AND_TOTAL}>
         {({ data: { cartProducts, cartTotal } }) => {
             console.log(cartProducts, cartTotal);
             
@@ -24,10 +32,16 @@ const CartDropdownContainer = () => (
           <CartDropdown
             cartProducts={cartProducts}
             cartTotal={cartTotal}
+            toggleCartDropdown={toggleCartDropdown}
             
           />
         )}}
       </Query>
+    )}
+  </Mutation>
+  
+    
+     
     
   
 );

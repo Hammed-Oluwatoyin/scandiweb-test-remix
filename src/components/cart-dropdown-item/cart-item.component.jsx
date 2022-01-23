@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+
 import {ReactComponent as SmallSizeIcon } from "../../assets/small-size-dropdown-icon.svg"
 import {ReactComponent as MediumSizeIcon} from "../../assets/medium-size-dropdown-icon.svg"
 import {ReactComponent as SquareMinusIcon} from "../../assets/minus-square-dropdown-icon.svg"
@@ -63,8 +64,8 @@ const CartItem = (props) => {
     
     <CartItemContainer >
       <TitlePriceSizeContainer>
-        <span>{props.cartProduct.name}</span>
-        <div>$50.00</div>
+        <span>{props.cartProduct.brand}</span>
+        <div>{props.cartProduct.prices[0].amount}</div>
         <SizeContainer>
           <SmallSizeIcon/> 
             <MediumSizeIcon/>

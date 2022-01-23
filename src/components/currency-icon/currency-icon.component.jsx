@@ -27,11 +27,11 @@ const StyledArrowIcon = styled.div`
     return (
       <>
         <StyledCurrencyIcon onClick = {() => this.props.toggleCurrencyDropdown()}>
-          {this.props.selectedCurrency.element}
+          hammed
           
         </StyledCurrencyIcon>
         <StyledArrowIcon>
-         {this.props.isCurrencyDropdownOpen ? <ArrowUpIcon/> : <ArrowDownIcon/> } 
+         {this.props.currencyDropdownHidden ? <ArrowUpIcon/> : <ArrowDownIcon/> } 
         </StyledArrowIcon>
        
         
