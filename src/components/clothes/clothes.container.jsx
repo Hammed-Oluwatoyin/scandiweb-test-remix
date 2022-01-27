@@ -14,6 +14,7 @@ category(input : {title: "clothes"}){
     name
     inStock
     gallery
+    description
     
     category
     prices{
@@ -26,7 +27,7 @@ category(input : {title: "clothes"}){
 } 
 }
 `
-class clothingPageContainer extends Component {
+class ClothingPageContainer extends Component {
   render() {
     
     return (
@@ -44,4 +45,4 @@ class clothingPageContainer extends Component {
 }
 
 
-export default clothingPageContainer;
+export default ClothingPageContainer;

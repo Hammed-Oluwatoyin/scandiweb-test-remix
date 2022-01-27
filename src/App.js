@@ -2,8 +2,10 @@ import React, { Component } from "react";
 import styled, { createGlobalStyle } from "styled-components";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 
-import ClothesPageContainer from "./components/clothes/clothes.container";
+import ClothingPageContainer from "./components/clothes/clothes.container";
 import TechPageContainer from "./components/tech/tech.container";
+import ProductDisplayContainer from "./components/product-display-container/product-display.container";
+
 import CartPageContainer from "./components/cart-page-container/cart-page-container";
 
 const Globalstyle = createGlobalStyle`
@@ -40,17 +42,21 @@ class App extends Component {
                 path="/"
                 render={(props) => <TechPageContainer {...props} />}
               />
-
               <Route
                 exact
                 path="/clothes"
-                render={(props) => <ClothesPageContainer {...props} />}
+                render={(props) => <ClothingPageContainer {...props} />}
               />
 
               <Route
                 exact
                 path="/cart"
                 render={(props) => <CartPageContainer {...props} />}
+              />
+
+              <Route
+                path="/:id"
+                render={(props) => <ProductDisplayContainer {...props} />}
               />
             </Switch>
           </BrowserRouter>

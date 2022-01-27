@@ -17,11 +17,7 @@ import CartItem from "./cart-item.component";
   }
 `;
 
-const CLEAR_PRODUCT_FROM_CART = gql`
-  mutation ClearProductFromCart($product: Product!) {
-    clearProductFromCart(product: $product) @client
-  }
-`;
+
 
   
 
@@ -36,7 +32,7 @@ const CartItemContainer = ({
             <CartItem {...otherProps}
     addProduct={product => addProductToCart({ variables: { product } })}
     removeProduct={product => removeProductFromCart({ variables: { product } })}
-    clearProduct={product => clearProductFromCart({ variables: { product } })} />
+     />
         
     
 )
@@ -45,6 +41,5 @@ const CartItemContainer = ({
 
 export default compose(
   graphql(ADD_PRODUCT_TO_CART, { name: 'addProductToCart' }),
-  graphql(REMOVE_PRODUCT_FROM_CART, { name: 'removeProductFromCart' }),
-  graphql(CLEAR_PRODUCT_FROM_CART, { name: 'clearProductFromCart' })
+  graphql(REMOVE_PRODUCT_FROM_CART, { name: 'removeProductFromCart' })
 )(CartItemContainer);

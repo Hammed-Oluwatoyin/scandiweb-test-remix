@@ -80,6 +80,11 @@ const OperationIcon = styled.div`
   justify-content: space-between;
 `;
 
+ const QuantityNumberContainer = styled.div`
+                                      font-weight: bold;
+                                      padding-left: 16px;
+                                    `
+
 
  class CartPageItem extends Component {
 
@@ -106,8 +111,10 @@ const OperationIcon = styled.div`
 
             <ImageWithIncrementAndDecrementCount>
               <OperationIcon>
-                <SquareMinusCartIcon />
-                <SquarePlusCartIcon />
+                
+                <SquarePlusCartIcon onClick={() => {this.props.addProduct(this.props.cartProduct)}} />
+                <QuantityNumberContainer >{this.props.cartProduct.quantity}</QuantityNumberContainer>
+                <SquareMinusCartIcon  onClick={() => {this.props.removeProduct(this.props.cartProduct)}} />
               </OperationIcon>
 
               <Image src={this.props.cartProduct && this.props.cartProduct.gallery[0]} />
