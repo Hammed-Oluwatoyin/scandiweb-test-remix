@@ -3,8 +3,10 @@ import styled from "styled-components";
 
  import {ReactComponent as ArrowDownIcon } from '../../assets/arrow-down-icon.svg'
  import { ReactComponent as ArrowUpIcon } from "../../assets/arrow-up-icon.svg";
+ import { ReactComponent as EuroFilter } from "../../assets/euro-filter.svg";
 
- 
+ import { ReactComponent as DollarFilter } from "../../assets/dollar-filter.svg";
+ import { ReactComponent as YenFilter } from "../../assets/yen-filter.svg";
 
  const StyledCurrencyIcon = styled.div`
                                         padding-top: 8px;
@@ -17,6 +19,7 @@ const StyledArrowIcon = styled.div`
                                         
 
                                         `
+ 
 
 
  
@@ -27,7 +30,7 @@ const StyledArrowIcon = styled.div`
     return (
       <>
         <StyledCurrencyIcon onClick = {() => this.props.toggleCurrencyDropdown()}>
-          hammed
+          {this.props.selectedCurrency.element}
           
         </StyledCurrencyIcon>
         <StyledArrowIcon>

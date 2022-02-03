@@ -36,40 +36,42 @@ const CurrencyItem = styled.div`
 
 
 
-const options = [
-  { label: "USD", value: "USD", element: <DollarFilter /> },
-  {
-    label: "EURO",
-    value: "EURO",
-    element: <EuroFilter />,
-  },
-  {
-    label: "JPY",
-    value: "JPY",
-    element: <YenFilter />,
-  },
-];
+
 
 
 class CurrencyDropdown extends Component  {
 
    static contextType = CurrencyContext;
 
-   
+    CurrencyChange =(option, event , i) => {
+          this.props.onSelectedCurrencyChange(option, event, i)
+   }
 
 
-   renderedOptions = options.map((option, i) => {
+  
+
+
+   renderedOptions = this.props.options.map((option, i) => {
+
+      
+
+          
        const {changeCurrency} = this.context;
+       
        return(
            <CurrencyItem  key={option.value}   isActive={i === this.props.selectedIndex}
-           onClick={(event) => {this.props.onSelectedCurrencyChange(option, event, i); changeCurrency(option.value)}}>
+           onClick= {(event) =>  {    
+                                     changeCurrency(option.value);
+                                  this.CurrencyChange(option, event,  i);
+                                  this.props.toggleCurrencyDropdown();
+           }} >
                 {option.element}
            </CurrencyItem>
        );
    });
   
     render() {
-        
+        console.log(this.props);
         
         return (
             <CurrencyContainer>

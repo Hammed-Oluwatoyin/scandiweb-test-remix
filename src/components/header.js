@@ -7,7 +7,7 @@ import { ReactComponent as YenFilter } from "../assets/yen-filter.svg";
 
 import CartIconContainer from "./cart-icon/cart-icon.container";
 import CurrencyIcon from "./currency-icon/currency-icon.container";
-import CurrencyDropdown from "./currency-dropdown/currency-dropdown.component";
+import CurrencyDropdownContainer from "./currency-dropdown/currency-dropdown-container";
 import CartDropdown from "./cart-dropdown/cart-dropdown.container";
 
 import { Link as ReactRouterDomLink, withRouter } from "react-router-dom";
@@ -55,13 +55,15 @@ const CartItemDropdownNav = styled.div`
 `;
 
 const StyledLink = styled(Link)`
-  padding: 4px 8px;
+  padding: 12px 12px;
   display: block;
   text-align: center;
   box-sizing: border-box;
   margin: auto 0;
   text-decoration: none;
   font-weight: ${(p) => (p.isActive ? "1000" : "200")};
+  color: #5ece7b;
+  border-bottom: 1px solid #5ece7b;
 `;
 
 const options = [
@@ -80,56 +82,20 @@ const options = [
 
 class Header extends Component {
   state = {
-    isCurrencyDropdownOpen: false,
-
     selectedCurrency: options[0],
     selectedIndex: 0,
-  };
-
-  handleCurrencyToggle = () => {
-    if (this.state.isCartDropdownOpen) {
-      this.setState({
-        isCartDropdownOpen: false,
-      });
-    }
-    this.setState({
-      isCurrencyDropdownOpen: !this.state.isCurrencyDropdownOpen,
-    });
-  };
-
-  // handleCartToggle = () => {
-  //   if (this.state.isCurrencyDropdownOpen) {
-  //     this.setState({
-  //       isCurrencyDropdownOpen: false,
-  //     });
-  //   }
-
-  //   this.setState({
-  //     isCartDropdownOpen: !this.state.isCartDropdownOpen,
-  //   });
-  // };
-
-  ChangeCurrencyDropdownToFalse = () => {
-    this.setState({
-      isCurrencyDropdownOpen: false,
-    });
   };
 
   handleChangeSelectedCurrency = (newSelectedCurrency, event, i) => {
     this.setState({
       selectedCurrency: newSelectedCurrency,
       selectedIndex: i,
-      isCurrencyDropdownOpen: false,
     });
   };
+
   render() {
     const { location, responseData } = this.props;
-    const {
-      isCurrencyDropdownOpen,
-      isCartDropdownOpen,
-      selectedCurrency,
-      selectedIndex,
-    } = this.state;
+    const { selectedCurrency, selectedIndex } = this.state;
     console.log(responseData);
 
     return (
@@ -146,21 +112,18 @@ class Header extends Component {
           <Logo />
         </LogoContainer>
         <CurrencyDropDownNav>
-          <CurrencyIcon
-            isCurrencyDropdownOpen={this.isCurrencyDropdownOpen}
-            selectedCurrency={selectedCurrency}
-          />
+          <CurrencyIcon selectedCurrency={selectedCurrency} />
         </CurrencyDropDownNav>
         <CartItemDropdownNav>
           <CartIconContainer />
         </CartItemDropdownNav>
 
         {responseData.data.currencyDropdownHidden ? (
-          <CurrencyDropdown
+          <CurrencyDropdownContainer
             selectedCurrency={selectedCurrency}
             onSelectedCurrencyChange={this.handleChangeSelectedCurrency}
-            ChangeCurrencyDropdownToFalse={this.ChangeCurrencyDropdownToFalse}
             selectedIndex={selectedIndex}
+            options={options}
           />
         ) : null}
         {responseData.data.cartDropdownHidden ? <CartDropdown /> : null}

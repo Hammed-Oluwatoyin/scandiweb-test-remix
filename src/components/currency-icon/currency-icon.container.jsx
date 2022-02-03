@@ -17,9 +17,14 @@ const GET_CURRENCY_DROPDOWN_HIDDEN = gql`
   }
 `;
 
-const CurrencyIconContainer = ({data : {currencyDropdownHidden}, toggleCurrencyDropdown}) => (
+
+
+
+
+
+const CurrencyIconContainer = ({data : {currencyDropdownHidden}, toggleCurrencyDropdown, selectedCurrency}) => (
       
-      <CurrencyIcon currencyDropdownHidden={currencyDropdownHidden}  toggleCurrencyDropdown={toggleCurrencyDropdown} />
+      <CurrencyIcon currencyDropdownHidden={currencyDropdownHidden}  selectedCurrency={selectedCurrency} toggleCurrencyDropdown={toggleCurrencyDropdown} />
 
   
 );

@@ -88,7 +88,7 @@ const Product = ({ product, addItem, history ,match }) => {
   
 
   return (
-    <ProductCard   onClick={() => history.push(`${match.path === "/clothes" ? "/clothes" : "/tech"}/${product.id}`)}>
+    <ProductCard   onClick={() => history.push(`${product.id}`)}>
 
       
               {!product.inStock && (

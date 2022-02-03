@@ -33,39 +33,6 @@ client.writeData({
     currencyDropdownHidden: false,
   },
 });
-// client
-//   .query({
-//     query: gql`
-//       {
-//         categories {
-//           name
-//           products {
-//             id
-//             name
-//             inStock
-//             description
-//             category
-//             attributes {
-//               id
-//               name
-//               type
-//               items {
-//                 displayValue
-//                 value
-//                 id
-//               }
-//             }
-//             prices {
-//               currency
-//               amount
-//             }
-//             brand
-//           }
-//         }
-//       }
-//     `,
-//   })
-//   .then((res) => console.log(res));
 
 ReactDOM.render(
   <React.StrictMode>
