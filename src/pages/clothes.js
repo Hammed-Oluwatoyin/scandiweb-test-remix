@@ -20,13 +20,7 @@ class Clothing extends Component {
           <CategoryName>{name}</CategoryName>
           <ProductWrapper>
             {products.map((product) => (
-              <ProductContainer
-                key={product.id}
-                product={product}
-                onClick={() =>
-                  history.push(`${match.path}/${product.name.toLowerCase()}`)
-                }
-              />
+              <ProductContainer key={product.id} product={product} />
             ))}
           </ProductWrapper>
         </CategoryContainer>

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { ReactComponent as Logo } from "../assets/logo.svg";
 import { ReactComponent as DollarFilter } from "../assets/dollar-filter.svg";
 import { ReactComponent as EuroFilter } from "../assets/euro-filter.svg";
@@ -19,7 +19,7 @@ const HeaderWrapper = styled.header`
   display: flex;
   padding: 0 16px;
   position: fixed;
-  z-index: 100;
+  z-index: 1000;
   top: 0;
   background: #ffffff;
 `;
@@ -61,9 +61,17 @@ const StyledLink = styled(Link)`
   box-sizing: border-box;
   margin: auto 0;
   text-decoration: none;
-  font-weight: ${(p) => (p.isActive ? "1000" : "200")};
+
+  ${(p) =>
+    p.isActive
+      ? css`
+          font-weight: 1000;
+          border-bottom: 1px solid #5ece7b;
+        `
+      : css`
+          font-weight: 200;
+        `}
   color: #5ece7b;
-  border-bottom: 1px solid #5ece7b;
 `;
 
 const options = [
@@ -102,6 +110,9 @@ class Header extends Component {
       <HeaderWrapper>
         <Nav>
           <StyledLink to="/" isActive={location.pathname === "/"}>
+            ALL
+          </StyledLink>
+          <StyledLink to="/tech" isActive={location.pathname === "/tech"}>
             TECH
           </StyledLink>
           <StyledLink to="/clothes" isActive={location.pathname === "/clothes"}>

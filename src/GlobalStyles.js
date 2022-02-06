@@ -25,7 +25,7 @@ export const StyledCircleIcon = styled.button`
 
 export const ProductWrapper = styled.div`
   max-width: 100%;
-  background: white;
+  background: #fff;
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;

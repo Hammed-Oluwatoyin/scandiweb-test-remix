@@ -75,7 +75,7 @@ const ProductContentPrice = styled.div`
   font-weight: 700;
   line-height: 18px;
   font-family: Roboto Condensed;
-  margin-top: 40px;
+  margin-top: 20px;
 `;
 
 const ProductContentPriceNumber = styled.div`
@@ -98,6 +98,21 @@ const AddToCartButton = styled.button`
 const DescriptionNote = styled.div`
   margin-top: 40px;
   margin-bottom: 72px;
+`;
+const ColorContainer = styled.div`
+  margin-top: 20px;
+  width: 100%;
+  height: 40px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+`;
+
+const ColorFliter = styled.div`
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: ${(props) => props.color};
 `;
 
 class ProductDisplay extends Component {
@@ -125,6 +140,13 @@ class ProductDisplay extends Component {
               <MediumIcon />
               <LargeIcon />
             </ExtraLargeLargeMediumSmallContainer>
+            <ColorContainer>
+              <ColorFliter color="red" />
+              <ColorFliter color="green" />
+              <ColorFliter color="blue" />
+              <ColorFliter color="orange" />
+              <ColorFliter color="yellow" />
+            </ColorContainer>
             <ProductContentPrice>PRICE</ProductContentPrice>
             <ProductContentPriceNumber>
               {`$${prices[0].amount}`}

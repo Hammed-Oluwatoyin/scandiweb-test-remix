@@ -106,12 +106,12 @@ class CartDropdown extends Component  {
                 <CartTotalPrice>$ {cartTotal}</CartTotalPrice>
                 </TotalItemsDescription>
                 <ButtonsContainer>
-                  <Button  black>VIEWBAG</Button>
-                  <Button    onClick={() => {
+                  <Button  black  onClick={() => {
         this.props.history.push('/cart')
         this.props.toggleCartDropdown();
         
-      }} green>CHECKOUT</Button>
+      }}>VIEWBAG</Button>
+                  <Button    green>CHECKOUT</Button>
                   </ButtonsContainer>
           
             </CartDropdownContainer>

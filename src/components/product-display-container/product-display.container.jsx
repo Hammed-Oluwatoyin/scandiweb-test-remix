@@ -13,7 +13,7 @@ const ADD_PRODUCT_TO_CART  = gql`
 
 
 const GET_PRODUCT = gql`
-            query($id: String!){
+  query($id: String!){
  
 product(id: $id){
 				id
@@ -22,6 +22,19 @@ product(id: $id){
         gallery
   			description
   			category
+  			attributes{
+          id
+          name
+          type
+          items{
+            	displayValue
+            	value
+              id
+          }
+          
+          
+          
+        }
   			brand
         
   				prices{

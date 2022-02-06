@@ -5,6 +5,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import ClothingPageContainer from "./components/clothes/clothes.container";
 import TechPageContainer from "./components/tech/tech.container";
 import ProductDisplayContainer from "./components/product-display-container/product-display.container";
+import AllPageContainer from "./components/all-page-container/all-page-container";
 
 import CartPageContainer from "./components/cart-page-container/cart-page-container";
 
@@ -40,6 +41,12 @@ class App extends Component {
               <Route
                 exact
                 path="/"
+                render={(props) => <AllPageContainer {...props} />}
+              />
+
+              <Route
+                exact
+                path="/tech"
                 render={(props) => <TechPageContainer {...props} />}
               />
               <Route
@@ -55,7 +62,7 @@ class App extends Component {
               />
 
               <Route
-                path="/:id"
+                path="/product/:id"
                 render={(props) => <ProductDisplayContainer {...props} />}
               />
             </Switch>
