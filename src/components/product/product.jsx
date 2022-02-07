@@ -87,7 +87,7 @@ export const ProductCard = styled.div`
 
 export const ProductImage = styled.img`
   position: relative;
-  height: 100%;
+  height: 500px;
   width: 100%;
   margin-bottom: 2px;
   opacity: ${(p) => (p.instock ? 1 : 0.5)};

@@ -108,7 +108,7 @@ const ColorContainer = styled.div`
   justify-content: space-around;
 `;
 
-const ColorFliter = styled.div`
+const ColorFilter = styled.div`
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -117,7 +117,7 @@ const ColorFliter = styled.div`
 
 class ProductDisplay extends Component {
   render() {
-    const { gallery, brand, name, prices, description } =
+    const { gallery, brand, name, prices, description, attributes } =
       this.props.responseData.product;
 
     return (
@@ -141,11 +141,38 @@ class ProductDisplay extends Component {
               <LargeIcon />
             </ExtraLargeLargeMediumSmallContainer>
             <ColorContainer>
-              <ColorFliter color="red" />
+              {/* <ColorFliter color="red" />
               <ColorFliter color="green" />
               <ColorFliter color="blue" />
               <ColorFliter color="orange" />
-              <ColorFliter color="yellow" />
+              <ColorFliter color="yellow" /> */}
+
+              {/* {attributes.length === 0 || attributes[0].type !== "swatch"
+                ? null 
+                : attributes.length !== 0 && attributes[0].type === "swatch"
+                ? attributes[0].items.map((color) => (
+                    <ColorFilter color={color.value} key={color.id} />
+                  ))
+                : attributes.length !== 0 && attributes[1].type === "swatch"
+                ? attributes[1].items.map((color) => (
+                    <ColorFilter color={color.value} key={color.id} />
+                  ))
+                : null} */}
+              {attributes.length === 0
+                ? null
+                : attributes.length === 1 && attributes[0].type !== "swatch"
+                ? null
+                : attributes.length === 3 && attributes[0].type !== "swatch"
+                ? null
+                : attributes.length === 2 && attributes[0].type === "swatch"
+                ? attributes[0].items.map((color) => (
+                    <ColorFilter color={color.value} key={color.id} />
+                  ))
+                : attributes.length === 2 && attributes[1].type === "swatch"
+                ? attributes[1].items.map((color) => (
+                    <ColorFilter color={color.value} key={color.id} />
+                  ))
+                : null}
             </ColorContainer>
             <ProductContentPrice>PRICE</ProductContentPrice>
             <ProductContentPriceNumber>
