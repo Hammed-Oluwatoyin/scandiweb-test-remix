@@ -7,13 +7,13 @@ import React from "react";
 import CartItem from "./cart-item.component";
 
   const ADD_PRODUCT_TO_CART  = gql`
-      mutation AddProductToCart($product: Product!){
-          addProductToCart(product: $product)  @client
+      mutation AddProductToCart($product: Product!, $number: Int){
+          addProductToCart(product: $product , number: $number)  @client
       }
   `;
   const REMOVE_PRODUCT_FROM_CART = gql`
-  mutation RemoveProductFromCart($product: Product!) {
-    removeProductFromCart(product: $product) @client
+  mutation RemoveProductFromCart($product: Product!, $number: Int) {
+    removeProductFromCart(product: $product, number: $number) @client
   }
 `;
 
@@ -24,14 +24,13 @@ import CartItem from "./cart-item.component";
 const CartItemContainer = ({
   addProductToCart,
   removeProductFromCart,
-  clearProductFromCart,
   ...otherProps
 }) => (
     
         
             <CartItem {...otherProps}
-    addProduct={product => addProductToCart({ variables: { product } })}
-    removeProduct={product => removeProductFromCart({ variables: { product } })}
+    addProduct={(product, number) => addProductToCart({ variables: { product , number} })}
+    removeProduct={(product, number) => removeProductFromCart({ variables: { product, number } })}
      />
         
     

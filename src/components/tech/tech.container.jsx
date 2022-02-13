@@ -16,6 +16,19 @@ category(input : {title: "tech"}){
     gallery
     
     category
+    attributes{
+          id
+          name
+          type
+          items{
+            	displayValue
+            	value
+              id
+          }
+          
+          
+          
+        }
     prices{
       currency
       amount

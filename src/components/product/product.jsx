@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 
 import { ReactComponent as CircleIcon } from "../../assets/circle-icon.svg";
 import {withRouter} from "react-router-dom";
@@ -7,6 +7,9 @@ import {withRouter} from "react-router-dom";
 
 
 import styled from "styled-components";
+import { CurrencyContext } from '../../Context/CurrencyContext';
+
+
 
 export const CategoryName = styled.div`
   font-size: 42px;
@@ -87,7 +90,7 @@ export const ProductCard = styled.div`
 
 export const ProductImage = styled.img`
   position: relative;
-  height: 500px;
+  height: 400px;
   width: 100%;
   margin-bottom: 2px;
   opacity: ${(p) => (p.instock ? 1 : 0.5)};
@@ -108,10 +111,49 @@ export const ProductPrice = styled.div`
   cursor: pointer;
 `;
 
+const CurrencySymobl = styled.span`
 
-const Product = ({ product, addItem, history ,match }) => {
+      
+`
+
+
+
+const ColorContainer = styled.div`
+  margin-top: 20px;
+  width: 100%;
+  height: 40px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+`;
+
+const ColorFilter = styled.div`
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: ${(props) => props.color};
+`;
+
+
+
+class Product extends Component {
+    static contextType = CurrencyContext;
   
+render() {
+  const {word, countries} = this.context;
+  
+   const splitedWord = word.split(" ");
+  
+   const country = splitedWord[1];
+   
 
+  const {symbol, number} = countries[country];
+      
+  
+          const {product, history, addItem} = this.props;
+          const {attributes} = product;
+          
+          console.log(this.props);
   return (
     <ProductWrapper>
         <ProductCard  onClick={() => history.push(`/product/${product.id}`)} >
@@ -127,15 +169,32 @@ const Product = ({ product, addItem, history ,match }) => {
               />
              
               <ProductName >{product.name}</ProductName>
+              <ColorContainer>
+               {attributes.length === 0
+                ? null
+                : attributes.length === 1 && attributes[0].type !== "swatch"
+                ? null
+                : attributes.length === 3 && attributes[0].type !== "swatch"
+                ? null
+                : attributes.length === 2 && attributes[0].type === "swatch"
+                ? attributes[0].items.map((color) => (
+                    <ColorFilter color={color.value} key={color.id} />
+                  ))
+                : attributes.length === 2 && attributes[1].type === "swatch"
+                ? attributes[1].items.map((color) => (
+                    <ColorFilter color={color.value} key={color.id} />
+                  ))
+                : null}
+              </ColorContainer>
               <ProductPrice >
-                <span>$</span>
-                {product.prices[0].amount}
+                <CurrencySymobl>{symbol}</CurrencySymobl>
+                {product.prices[number].amount}
               </ProductPrice>
                
                  
             </ProductCard>
             <StyledCircleIcon  onClick={() => {
-          addItem(product)}}>
+          addItem(product , number)}}>
                    <CircleIcon/>
                  </StyledCircleIcon>
       
@@ -148,6 +207,10 @@ const Product = ({ product, addItem, history ,match }) => {
 
             
   );
-};
+  
+}
+
+}
+
 
 export default withRouter(Product);

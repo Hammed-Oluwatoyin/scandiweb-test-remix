@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import styled, {css} from "styled-components";
 import  CartItemContainer   from "../cart-dropdown-item/cart-item.container";
 import { withRouter } from 'react-router-dom';
+import { CurrencyContext } from "../../Context/CurrencyContext";
 
 const CartDropdownContainer = styled.div`
       position: absolute;
@@ -86,8 +87,17 @@ const Button = styled.button`
 
 
 class CartDropdown extends Component  {
+  static contextType = CurrencyContext;
   
     render() {
+       const {word, countries} = this.context;
+  
+   const splitedWord = word.split(" ");
+  
+   const country = splitedWord[1];
+   
+
+  const {symbol, number} = countries[country];
         console.log(this.props);
         const {cartProducts, cartTotal} = this.props;
         console.log(cartProducts);
@@ -103,7 +113,7 @@ class CartDropdown extends Component  {
     </CartItemsList>
                 <TotalItemsDescription>
                   <CartTotalHeading>Total</CartTotalHeading>
-                <CartTotalPrice>$ {cartTotal}</CartTotalPrice>
+                <CartTotalPrice>{symbol} {cartTotal}</CartTotalPrice>
                 </TotalItemsDescription>
                 <ButtonsContainer>
                   <Button  black  onClick={() => {

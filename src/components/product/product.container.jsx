@@ -6,8 +6,8 @@
 import Product from "./product";
 
   const ADD_PRODUCT_TO_CART  = gql`
-      mutation AddProductToCart($product: Product!){
-          addProductToCart(product: $product)  @client
+      mutation AddProductToCart($product: Product! ,$number: Int){
+          addProductToCart(product: $product, number: $number)  @client
       }
   `;
 
@@ -16,7 +16,7 @@ import Product from "./product";
 const ProductContainer = (props) => (
     <Mutation mutation={ADD_PRODUCT_TO_CART}>
         {addProductToCart => (
-            <Product {...props} addItem={product =>  addProductToCart({variables:{product} })} />
+            <Product {...props} addItem={(product, number) =>  addProductToCart({variables:{product , number} })} />
         )}
     </Mutation>
 )

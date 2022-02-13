@@ -15,9 +15,9 @@ export const typeDefs = gql`
   extend type Mutation {
     ToggleCartDropdown: Boolean!
     ToggleCurrencyDropdown: Boolean!
-    AddProductToCart(product: Product!): [Product]!
-    RemoveProductFromCart(product: Product!): [Product]!
-    ClearProductFromCart(product: Product!): [Product]!
+    AddProductToCart(product: Product!, number: Int): [Product]!
+    RemoveProductFromCart(product: Product!, number: Int): [Product]!
+    ClearProductFromCart(product: Product!, number: Int): [Product]!
   }
 `;
 
@@ -96,7 +96,7 @@ export const resolvers = {
 
       return !cartDropdownHidden;
     },
-    addProductToCart: (_root, { product }, { cache }) => {
+    addProductToCart: (_root, { product, number }, { cache }) => {
       const { cartProducts } = cache.readQuery({
         query: GET_CART_PRODUCTS,
       });
@@ -105,7 +105,7 @@ export const resolvers = {
 
       cache.writeQuery({
         query: GET_CART_TOTAL,
-        data: { cartTotal: getCartTotal(newCartProducts) },
+        data: { cartTotal: getCartTotal(newCartProducts, number) },
       });
 
       cache.writeQuery({
@@ -120,7 +120,7 @@ export const resolvers = {
 
       return newCartProducts;
     },
-    removeProductFromCart: (_root, { product }, { cache }) => {
+    removeProductFromCart: (_root, { product, number }, { cache }) => {
       const { cartProducts } = cache.readQuery({
         query: GET_CART_PRODUCTS,
       });
@@ -129,7 +129,7 @@ export const resolvers = {
 
       cache.writeQuery({
         query: GET_CART_TOTAL,
-        data: { cartTotal: getCartTotal(newCartProducts) },
+        data: { cartTotal: getCartTotal(newCartProducts, number) },
       });
 
       cache.writeQuery({

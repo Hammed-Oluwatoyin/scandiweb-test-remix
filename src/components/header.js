@@ -9,8 +9,16 @@ import CartIconContainer from "./cart-icon/cart-icon.container";
 import CurrencyIcon from "./currency-icon/currency-icon.container";
 import CurrencyDropdownContainer from "./currency-dropdown/currency-dropdown-container";
 import CartDropdown from "./cart-dropdown/cart-dropdown.container";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faRubleSign,
+  faDollarSign,
+  faYenSign,
+  faPoundSign,
+} from "@fortawesome/free-solid-svg-icons";
 
 import { Link as ReactRouterDomLink, withRouter } from "react-router-dom";
+import { CurrencyContext } from "../Context/CurrencyContext";
 
 const HeaderWrapper = styled.header`
   height: 80px;
@@ -41,15 +49,6 @@ const LogoContainer = styled.div`
   margin: auto 40% auto 0;
 `;
 
-const CurrencyDropDownNav = styled.div`
-  width: 25px;
-  position: relative;
-  margin: 27px 0px;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-`;
-
 const CartItemDropdownNav = styled.div`
   margin: 25px 50px;
 `;
@@ -74,37 +73,35 @@ const StyledLink = styled(Link)`
   color: #5ece7b;
 `;
 
-const options = [
-  { label: "USD", value: "USD", element: <DollarFilter /> },
-  {
-    label: "EURO",
-    value: "EURO",
-    element: <EuroFilter />,
-  },
-  {
-    label: "JPY",
-    value: "JPY",
-    element: <YenFilter />,
-  },
-];
+const Filter = styled.div`
+  right: 100px;
+  top: 28px;
+  font-weight: 600;
+  position: absolute;
+`;
+
+const Select = styled.select`
+  padding: 5px;
+  font-size: 18px;
+  border: 0px;
+  margin-left: 20px;
+
+  line-height: 40.8px;
+`;
+
+const Option = styled.option`
+  padding-bottom: 20px;
+  line-height: 28.8px;
+`;
 
 class Header extends Component {
-  state = {
-    selectedCurrency: options[0],
-    selectedIndex: 0,
-  };
-
-  handleChangeSelectedCurrency = (newSelectedCurrency, event, i) => {
-    this.setState({
-      selectedCurrency: newSelectedCurrency,
-      selectedIndex: i,
-    });
-  };
+  static contextType = CurrencyContext;
 
   render() {
+    const { changeCurrency, word, countries } = this.context;
     const { location, responseData } = this.props;
-    const { selectedCurrency, selectedIndex } = this.state;
-    console.log(responseData);
+
+    console.log(word);
 
     return (
       <HeaderWrapper>
@@ -122,22 +119,22 @@ class Header extends Component {
         <LogoContainer>
           <Logo />
         </LogoContainer>
-        <CurrencyDropDownNav>
-          <CurrencyIcon selectedCurrency={selectedCurrency} />
-        </CurrencyDropDownNav>
+
         <CartItemDropdownNav>
           <CartIconContainer />
         </CartItemDropdownNav>
 
-        {responseData.data.currencyDropdownHidden ? (
-          <CurrencyDropdownContainer
-            selectedCurrency={selectedCurrency}
-            onSelectedCurrencyChange={this.handleChangeSelectedCurrency}
-            selectedIndex={selectedIndex}
-            options={options}
-          />
-        ) : null}
         {responseData.data.cartDropdownHidden ? <CartDropdown /> : null}
+        <Filter>
+          <Select value={word} onChange={changeCurrency}>
+            <Option value="$ USD ">$ USD</Option>
+            <Option value="₽ RUB">₽ RUB</Option>
+            <Option value="$ AUS">$ AUS</Option>
+            <Option value="¥ YEN">¥ YEN</Option>
+
+            <Option value="£ GBP">£ GBP</Option>
+          </Select>
+        </Filter>
       </HeaderWrapper>
     );
   }

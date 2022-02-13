@@ -38,7 +38,6 @@ const CurrencyItem = styled.div`
 
 
 
-
 class CurrencyDropdown extends Component  {
 
    static contextType = CurrencyContext;
@@ -51,25 +50,7 @@ class CurrencyDropdown extends Component  {
   
 
 
-   renderedOptions = this.props.options.map((option, i) => {
 
-      
-
-          
-       const {changeCurrency} = this.context;
-       
-       return(
-           <CurrencyItem  key={option.value}   isActive={i === this.props.selectedIndex}
-           onClick= {(event) =>  {    
-                                     changeCurrency(option.value);
-                                  this.CurrencyChange(option, event,  i);
-                                  this.props.toggleCurrencyDropdown();
-           }} >
-                {option.element}
-           </CurrencyItem>
-       );
-   });
-  
     render() {
         console.log(this.props);
         
@@ -77,7 +58,7 @@ class CurrencyDropdown extends Component  {
             <CurrencyContainer>
                 
             
-             {this.renderedOptions}
+              hammed
             
             </CurrencyContainer>
         )

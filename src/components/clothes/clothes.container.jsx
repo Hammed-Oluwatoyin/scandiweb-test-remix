@@ -17,6 +17,19 @@ category(input : {title: "clothes"}){
     description
     
     category
+    attributes{
+          id
+          name
+          type
+          items{
+            	displayValue
+            	value
+              id
+          }
+          
+          
+          
+        }
     prices{
       currency
       amount

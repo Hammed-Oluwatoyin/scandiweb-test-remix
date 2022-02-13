@@ -1,10 +1,11 @@
-import React from 'react';
+import React, {Component} from 'react';
 import styled from 'styled-components';
 
 import {ReactComponent as SmallSizeIcon } from "../../assets/small-size-dropdown-icon.svg"
 import {ReactComponent as MediumSizeIcon} from "../../assets/medium-size-dropdown-icon.svg"
 import {ReactComponent as SquareMinusIcon} from "../../assets/minus-square-dropdown-icon.svg"
 import {ReactComponent as SquarePlusIcon} from "../../assets/plus-square-dropdown-icon.svg"
+import { CurrencyContext } from '../../Context/CurrencyContext';
 
 
 const  CartItemContainer =  styled.div`
@@ -54,18 +55,26 @@ const  CartItemContainer =  styled.div`
             padding: auto;`
 
 
+class CartItem extends Component {
+  static contextType = CurrencyContext;
+  render() {
+     const {word, countries} = this.context;
+  
+   const splitedWord = word.split(" ");
+  
+   const country = splitedWord[1];
+   
 
-const CartItem = (props) => {
-
-    
- console.log(props)
-    return (
+  const {symbol, number} = countries[country];
+    const {cartProduct, addProduct, removeProduct} = this.props;
+     return (
   
     
     <CartItemContainer >
       <TitlePriceSizeContainer>
-        <span>{props.cartProduct.brand}</span>
-        <div>{props.cartProduct.prices[0].amount}</div>
+        <div>{cartProduct.brand}</div>
+        
+        <div><span>{symbol}</span>{cartProduct.prices[number].amount}</div>
         <SizeContainer>
           <SmallSizeIcon/> 
             <MediumSizeIcon/>
@@ -73,17 +82,18 @@ const CartItem = (props) => {
        
       </TitlePriceSizeContainer>
      <PlusQuantityMinusContainer>
-       <SqaurePlusIconWrapper  onClick={() => {props.addProduct(props.cartProduct)}}><SquarePlusIcon/></SqaurePlusIconWrapper>
+       <SqaurePlusIconWrapper  onClick={() => {addProduct(cartProduct, number)}}><SquarePlusIcon/></SqaurePlusIconWrapper>
           
-          <QuantityNumberContainer >{props.cartProduct.quantity}</QuantityNumberContainer>
-          <SquareMinusIconWrapper onClick={() => {props.removeProduct(props.cartProduct)}}> <SquareMinusIcon/></SquareMinusIconWrapper>
+          <QuantityNumberContainer >{cartProduct.quantity}</QuantityNumberContainer>
+          <SquareMinusIconWrapper onClick={() => {removeProduct(cartProduct, number)}}> <SquareMinusIcon/></SquareMinusIconWrapper>
          
       </PlusQuantityMinusContainer>
-       <ImageContainer src={props.cartProduct.gallery[0]}/>  
+       <ImageContainer src={cartProduct.gallery[0]}/>  
     
     </CartItemContainer>
   
 );
+  }
 }
 
 export default CartItem;

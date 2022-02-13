@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import PageLayout from "../components/PageLayout";
 import styled from "styled-components";
 import CartPageItemContainer from "../components/cart-page-item/cart-page-item-container";
+import { CurrencyContext } from "../Context/CurrencyContext";
 
 const CartPageHeader = styled.div`
   font-weight: 700;
@@ -11,6 +12,7 @@ const CartPageHeader = styled.div`
 `;
 
 class Cart extends Component {
+  static contextType = CurrencyContext;
   render() {
     const { cartProducts } = this.props;
     return (

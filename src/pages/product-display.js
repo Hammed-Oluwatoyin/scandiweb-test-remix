@@ -141,23 +141,6 @@ class ProductDisplay extends Component {
               <LargeIcon />
             </ExtraLargeLargeMediumSmallContainer>
             <ColorContainer>
-              {/* <ColorFliter color="red" />
-              <ColorFliter color="green" />
-              <ColorFliter color="blue" />
-              <ColorFliter color="orange" />
-              <ColorFliter color="yellow" /> */}
-
-              {/* {attributes.length === 0 || attributes[0].type !== "swatch"
-                ? null 
-                : attributes.length !== 0 && attributes[0].type === "swatch"
-                ? attributes[0].items.map((color) => (
-                    <ColorFilter color={color.value} key={color.id} />
-                  ))
-                : attributes.length !== 0 && attributes[1].type === "swatch"
-                ? attributes[1].items.map((color) => (
-                    <ColorFilter color={color.value} key={color.id} />
-                  ))
-                : null} */}
               {attributes.length === 0
                 ? null
                 : attributes.length === 1 && attributes[0].type !== "swatch"

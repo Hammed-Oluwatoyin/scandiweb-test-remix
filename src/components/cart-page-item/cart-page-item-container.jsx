@@ -7,19 +7,19 @@ import React from "react";
 import CartPageItem from "./cart-page-item-component";
 
   const ADD_PRODUCT_TO_CART  = gql`
-      mutation AddProductToCart($product: Product!){
-          addProductToCart(product: $product)  @client
+      mutation AddProductToCart($product: Product!, $number: Int  ){
+          addProductToCart(product: $product, number: $number)  @client
       }
   `;
   const REMOVE_PRODUCT_FROM_CART = gql`
-  mutation RemoveProductFromCart($product: Product!) {
-    removeProductFromCart(product: $product) @client
+  mutation RemoveProductFromCart($product: Product!, $number: Int) {
+    removeProductFromCart(product: $product,  number: $number) @client
   }
 `;
 
 const CLEAR_PRODUCT_FROM_CART = gql`
-  mutation ClearProductFromCart($product: Product!) {
-    clearProductFromCart(product: $product) @client
+  mutation ClearProductFromCart($product: Product!, $number:Int) {
+    clearProductFromCart(product: $product, number: $number) @client
   }
 `;
 
@@ -34,9 +34,9 @@ const CartPageItemContainer = ({
     
         
             <CartPageItem {...otherProps}
-    addProduct={product => addProductToCart({ variables: { product } })}
-    removeProduct={product => removeProductFromCart({ variables: { product } })}
-    clearProduct={product => clearProductFromCart({ variables: { product } })} />
+    addProduct={(product, number) => addProductToCart({ variables: { product, number } })}
+    removeProduct={(product, number) => removeProductFromCart({ variables: { product, number } })}
+    clearProduct={(product, number) => clearProductFromCart({ variables: { product, number } })} />
         
     
 )
