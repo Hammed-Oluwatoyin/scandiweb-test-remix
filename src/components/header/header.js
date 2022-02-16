@@ -1,24 +1,13 @@
 import React, { Component } from "react";
 import styled, { css } from "styled-components";
-import { ReactComponent as Logo } from "../assets/logo.svg";
-import { ReactComponent as DollarFilter } from "../assets/dollar-filter.svg";
-import { ReactComponent as EuroFilter } from "../assets/euro-filter.svg";
-import { ReactComponent as YenFilter } from "../assets/yen-filter.svg";
+import { ReactComponent as Logo } from "../../assets/logo.svg";
 
-import CartIconContainer from "./cart-icon/cart-icon.container";
-import CurrencyIcon from "./currency-icon/currency-icon.container";
-import CurrencyDropdownContainer from "./currency-dropdown/currency-dropdown-container";
-import CartDropdown from "./cart-dropdown/cart-dropdown.container";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faRubleSign,
-  faDollarSign,
-  faYenSign,
-  faPoundSign,
-} from "@fortawesome/free-solid-svg-icons";
+import CartIconContainer from "../cart-icon/cart-icon.container";
+
+import CartDropdown from "../cart-dropdown/cart-dropdown.container";
 
 import { Link as ReactRouterDomLink, withRouter } from "react-router-dom";
-import { CurrencyContext } from "../Context/CurrencyContext";
+import { CurrencyContext } from "../../Context/CurrencyContext";
 
 const HeaderWrapper = styled.header`
   height: 80px;
@@ -100,24 +89,11 @@ class Header extends Component {
     this.dropdownButton = React.createRef();
   }
 
-  onBodyClick(event) {}
-
-  // componentDidMount() {
-  //   document.body.addEventListener("click", this.onBodyClick);
-  // }
-
-  // componentWillUnmount() {
-  //   document.body.removeEventListener("click", this.onBodyClick);
-  // }
-
   static contextType = CurrencyContext;
 
   render() {
     const { changeCurrency, word } = this.context;
     const { location, responseData } = this.props;
-
-    console.log(word);
-    console.log(this.dropdownButton);
 
     return (
       <HeaderWrapper>

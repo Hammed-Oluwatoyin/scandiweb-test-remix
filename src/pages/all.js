@@ -10,8 +10,6 @@ import { default as ProductContainer } from "../components/product/product.conta
 class All extends Component {
   render() {
     const [clothes, tech] = this.props.responseData.data.categories;
-    console.log(this.props.responseData.data.categories);
-    console.log(clothes, tech);
     return (
       <div>
         <PageLayout>

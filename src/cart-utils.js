@@ -49,7 +49,5 @@ export const getCartTotal = (cartProducts, number) =>
     )
     .toFixed(2);
 
-console.log(getCartTotal);
-
 export const clearProductFromCart = (cartProducts, item) =>
   cartProducts.filter((cartProduct) => cartProduct.id !== item.id);

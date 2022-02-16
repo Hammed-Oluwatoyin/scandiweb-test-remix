@@ -46,9 +46,7 @@ class ClothingPageContainer extends Component {
     return (
   <Query query={GET_PRODUCTS}>
             {({loading, data, error})  => {
-                console.log({loading});
-                console.log({data});
-                console.log({error});
+                
                 if (loading) return <div>loading...</div>
                 return <Clothes responseData = {{data}} />
             }}

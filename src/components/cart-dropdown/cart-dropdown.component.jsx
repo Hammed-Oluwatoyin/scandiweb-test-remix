@@ -97,10 +97,10 @@ class CartDropdown extends Component  {
    const country = splitedWord[1];
    
 
-  const {symbol, number} = countries[country];
-        console.log(this.props);
+  const {symbol} = countries[country];
+        
         const {cartProducts, cartTotal} = this.props;
-        console.log(cartProducts);
+        
         return (
             <CartDropdownContainer>
                 <ItemsSummaryDescriptionContainer><b>My Bag , </b>{cartProducts.length} items</ItemsSummaryDescriptionContainer>

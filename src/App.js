@@ -6,8 +6,6 @@ import ClothingPageContainer from "./components/clothes/clothes.container";
 import TechPageContainer from "./components/tech/tech.container";
 import ProductDisplayContainer from "./components/product-display-container/product-display.container";
 import AllPageContainer from "./components/all-page-container/all-page-container";
-import FontPage from "./pages/font-page";
-
 import CartPageContainer from "./components/cart-page-container/cart-page-container";
 
 const Globalstyle = createGlobalStyle`
@@ -61,7 +59,6 @@ class App extends Component {
                 path="/cart"
                 render={(props) => <CartPageContainer {...props} />}
               />
-              <Route path="/font" render={(props) => <FontPage {...props} />} />
 
               <Route
                 path="/product/:id"

@@ -129,6 +129,8 @@ class ProductDisplay extends Component {
     const { gallery, brand, name, prices, description, attributes } =
       this.props.responseData.product;
 
+    const { product } = this.props.responseData;
+
     return (
       <PageLayout>
         <ProductDisplayWrapper>
@@ -172,7 +174,7 @@ class ProductDisplay extends Component {
             </ProductContentPriceNumber>
             <AddToCartButton
               onClick={() => {
-                this.props.addItem(this.props.responseData.product);
+                this.props.addItem(product, number);
               }}
             >
               ADD TO CART

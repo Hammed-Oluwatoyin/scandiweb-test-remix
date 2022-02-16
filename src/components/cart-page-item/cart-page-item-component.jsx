@@ -100,7 +100,7 @@ const OperationIcon = styled.div`
    
 
   const {symbol, number} = countries[country];
-      console.log(this.props)
+      
       
     return (
                <CartWrapper>

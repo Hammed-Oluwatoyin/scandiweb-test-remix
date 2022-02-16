@@ -66,15 +66,17 @@ class CartItem extends Component {
    
 
   const {symbol, number} = countries[country];
+  console.log(this.props)
     const {cartProduct, addProduct, removeProduct} = this.props;
+    const {brand,quantity,gallery, prices} = cartProduct;
      return (
   
     
     <CartItemContainer >
       <TitlePriceSizeContainer>
-        <div>{cartProduct.brand}</div>
+        <div>{ brand}</div>
         
-        <div><span>{symbol}</span>{cartProduct.prices[number].amount}</div>
+        <div><span>{symbol}</span>{prices[number].amount}</div>
         <SizeContainer>
           <SmallSizeIcon/> 
             <MediumSizeIcon/>
@@ -84,11 +86,11 @@ class CartItem extends Component {
      <PlusQuantityMinusContainer>
        <SqaurePlusIconWrapper  onClick={() => {addProduct(cartProduct, number)}}><SquarePlusIcon/></SqaurePlusIconWrapper>
           
-          <QuantityNumberContainer >{cartProduct.quantity}</QuantityNumberContainer>
+          <QuantityNumberContainer >{quantity}</QuantityNumberContainer>
           <SquareMinusIconWrapper onClick={() => {removeProduct(cartProduct, number)}}> <SquareMinusIcon/></SquareMinusIconWrapper>
          
       </PlusQuantityMinusContainer>
-       <ImageContainer src={cartProduct.gallery[0]}/>  
+       <ImageContainer src={gallery[0]}/>  
     
     </CartItemContainer>
   

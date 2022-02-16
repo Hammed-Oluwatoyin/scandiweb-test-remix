@@ -6,8 +6,8 @@ import ProductDisplay from "../../pages/product-display";
 
 
 const ADD_PRODUCT_TO_CART  = gql`
-      mutation AddProductToCart($product: Product!){
-          addProductToCart(product: $product)  @client
+      mutation AddProductToCart($product: Product!, $number: Int){
+          addProductToCart(product: $product, number: $number )  @client
       }
   `;
 
@@ -49,19 +49,16 @@ product(id: $id){
 class ProductDisplayContainer extends Component {
   render() {
     const {id} = this.props.match.params;
-    console.log(id);
-    console.log(this.props);
+    
     
     return (
       <Mutation  mutation={ADD_PRODUCT_TO_CART}>
             {(addProductToCart) => (
               <Query query={GET_PRODUCT}  variables={{id :id }}>
             {({loading, data, error})  => {
-                console.log({loading});
-                console.log({data});
-                console.log({error});
+               
                 if (loading) return <div>loading...</div>
-                return <ProductDisplay responseData= {data}  addItem={product =>  addProductToCart({variables:{product} })} />
+                return <ProductDisplay responseData= {data}  addItem={(product , number) =>  addProductToCart({variables:{product, number} })} />
             }}
     </Query>
 

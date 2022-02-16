@@ -153,7 +153,7 @@ render() {
           const {product, history, addItem} = this.props;
           const {attributes, inStock} = product;
           
-          console.log(this.props , attributes, inStock);
+          
           
   return (
     <ProductWrapper>
@@ -194,7 +194,7 @@ render() {
                
                  
             </ProductCard>
-              {attributes.length === 0 || !product.inStock ? null: <StyledCircleIcon  onClick={() => {
+              {attributes.length === 0 || !inStock ? null: <StyledCircleIcon  onClick={() => {
           addItem(product , number)}}>
                    <CircleIcon/>
                  </StyledCircleIcon> }

@@ -1,4 +1,4 @@
-  import React from "react";
+  import React, { Component } from "react";
   import {Mutation} from 'react-apollo';
   import { gql } from "apollo-boost";
 
@@ -11,14 +11,23 @@ import Product from "./product";
       }
   `;
 
-  
-
-const ProductContainer = (props) => (
-    <Mutation mutation={ADD_PRODUCT_TO_CART}>
+  class ProductContainer extends Component {
+  render() {
+    
+    return (
+  <Mutation mutation={ADD_PRODUCT_TO_CART}>
         {addProductToCart => (
-            <Product {...props} addItem={(product, number) =>  addProductToCart({variables:{product , number} })} />
+            <Product {...this.props} addItem={(product, number) =>  addProductToCart({variables:{product , number} })} />
         )}
     </Mutation>
 )
+    ;
+  }
+}
+
+
+  
+
+
 
 export default ProductContainer;

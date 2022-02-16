@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import PageLayout from "../components/PageLayout";
-import { Route, withRouter } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import {
   CategoryName,
   CategoryContainer,
@@ -11,9 +11,8 @@ import { default as ProductContainer } from "../components/product/product.conta
 
 class Clothing extends Component {
   render() {
-    const { name, products, match, history } =
-      this.props.responseData.data.category;
-    console.log(this.props);
+    const { name, products } = this.props.responseData.data.category;
+
     return (
       <PageLayout>
         <CategoryContainer>

@@ -3,6 +3,7 @@ import { gql } from "apollo-boost";
 import compose from "lodash.flowright";
 
 import CartIcon from "./cart-icon.component.jsx";
+import { Component } from "react";
 
 const TOGGLE_CART_DROPDOWN = gql`
   mutation ToggleCartDropdown {
@@ -16,14 +17,21 @@ const GET_PRODUCT_COUNT = gql`
   }
 `
 
-
-
-const CartIconContainer = ({data: {productCount}, toggleCartDropdown}) => (
- 
-      <CartIcon productCount={productCount} toggleCartDropdown={toggleCartDropdown} />
+class CartIconContainer extends Component {
+  render() {
     
-  
-);
+    const {toggleCartDropdown, data} = this.props;
+    const {productCount} = data;
+    return (
+                <CartIcon productCount={productCount} toggleCartDropdown={toggleCartDropdown} />
+    );
+  }
+}
+
+
+
+
+
 
 export default compose(
   graphql(TOGGLE_CART_DROPDOWN, {name: 'toggleCartDropdown'}),

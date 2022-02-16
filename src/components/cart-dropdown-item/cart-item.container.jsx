@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Component } from "react";
   import {  graphql } from 'react-apollo';
   import { gql } from "apollo-boost";
   import compose from "lodash.flowright";
@@ -18,23 +18,27 @@ import CartItem from "./cart-item.component";
 `;
 
 
+class CartItemContainer extends Component {
 
-  
-
-const CartItemContainer = ({
-  addProductToCart,
-  removeProductFromCart,
-  ...otherProps
-}) => (
-    
-        
-            <CartItem {...otherProps}
+  render() {
+    console.log(this.props.cartProduct)
+      const {addProductToCart, removeProductFromCart, cartProduct} = this.props;  
+    return (
+   <CartItem
+    cartProduct={cartProduct}
     addProduct={(product, number) => addProductToCart({ variables: { product , number} })}
     removeProduct={(product, number) => removeProductFromCart({ variables: { product, number } })}
      />
         
-    
-)
+    );
+  }
+}
+
+
+
+  
+
+
 
 
 

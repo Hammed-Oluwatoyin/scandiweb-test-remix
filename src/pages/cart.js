@@ -14,7 +14,9 @@ const CartPageHeader = styled.div`
 class Cart extends Component {
   static contextType = CurrencyContext;
   render() {
-    const { cartProducts } = this.props;
+    console.log(this.props);
+    const { responseData } = this.props;
+    const { cartProducts } = responseData.data;
     return (
       <PageLayout>
         <CartPageHeader>Cart</CartPageHeader>

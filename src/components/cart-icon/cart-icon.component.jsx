@@ -41,7 +41,7 @@ const CartWrapper = styled.div`
   
   render() {
               
-    console.log(this.props);
+    
     return (
       <CartWrapper onClick = {() => this.props.toggleCartDropdown()} >
       <StyledCartIcon>
