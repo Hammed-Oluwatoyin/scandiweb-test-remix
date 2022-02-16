@@ -130,7 +130,7 @@ const ColorContainer = styled.div`
 const ColorFilter = styled.div`
   width: 40px;
   height: 40px;
-  border-radius: 50%;
+  
   background-color: ${(props) => props.color};
 `;
 
@@ -151,9 +151,10 @@ render() {
       
   
           const {product, history, addItem} = this.props;
-          const {attributes} = product;
+          const {attributes, inStock} = product;
           
-          console.log(this.props);
+          console.log(this.props , attributes, inStock);
+          
   return (
     <ProductWrapper>
         <ProductCard  onClick={() => history.push(`/product/${product.id}`)} >
@@ -193,10 +194,12 @@ render() {
                
                  
             </ProductCard>
-            <StyledCircleIcon  onClick={() => {
+              {attributes.length === 0 || !product.inStock ? null: <StyledCircleIcon  onClick={() => {
           addItem(product , number)}}>
                    <CircleIcon/>
-                 </StyledCircleIcon>
+                 </StyledCircleIcon> }
+
+            
       
           
         

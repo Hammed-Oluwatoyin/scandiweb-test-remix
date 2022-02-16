@@ -95,13 +95,29 @@ const Option = styled.option`
 `;
 
 class Header extends Component {
+  constructor(props) {
+    super(props);
+    this.dropdownButton = React.createRef();
+  }
+
+  onBodyClick(event) {}
+
+  // componentDidMount() {
+  //   document.body.addEventListener("click", this.onBodyClick);
+  // }
+
+  // componentWillUnmount() {
+  //   document.body.removeEventListener("click", this.onBodyClick);
+  // }
+
   static contextType = CurrencyContext;
 
   render() {
-    const { changeCurrency, word, countries } = this.context;
+    const { changeCurrency, word } = this.context;
     const { location, responseData } = this.props;
 
     console.log(word);
+    console.log(this.dropdownButton);
 
     return (
       <HeaderWrapper>
@@ -125,7 +141,7 @@ class Header extends Component {
         </CartItemDropdownNav>
 
         {responseData.data.cartDropdownHidden ? <CartDropdown /> : null}
-        <Filter>
+        <Filter ref={this.dropdownButton}>
           <Select value={word} onChange={changeCurrency}>
             <Option value="$ USD ">$ USD</Option>
             <Option value="₽ RUB">₽ RUB</Option>

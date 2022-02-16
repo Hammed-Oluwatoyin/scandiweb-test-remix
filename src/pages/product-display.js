@@ -5,6 +5,7 @@ import { ReactComponent as ExtraLargeIcon } from "../assets/product-display-extr
 import { ReactComponent as LargeIcon } from "../assets/product-display-large-icon.svg";
 import { ReactComponent as SmallIcon } from "../assets/product-display-small-icon.svg";
 import { ReactComponent as MediumIcon } from "../assets/product-display-medium-icon.svg";
+import { CurrencyContext } from "../Context/CurrencyContext";
 
 const ProductDisplayWrapper = styled.div`
   height: 665px;
@@ -111,12 +112,20 @@ const ColorContainer = styled.div`
 const ColorFilter = styled.div`
   width: 40px;
   height: 40px;
-  border-radius: 50%;
   background-color: ${(props) => props.color};
 `;
 
 class ProductDisplay extends Component {
+  static contextType = CurrencyContext;
   render() {
+    const { word, countries } = this.context;
+
+    const splitedWord = word.split(" ");
+
+    const country = splitedWord[1];
+
+    const { symbol, number } = countries[country];
+
     const { gallery, brand, name, prices, description, attributes } =
       this.props.responseData.product;
 
@@ -159,7 +168,7 @@ class ProductDisplay extends Component {
             </ColorContainer>
             <ProductContentPrice>PRICE</ProductContentPrice>
             <ProductContentPriceNumber>
-              {`$${prices[0].amount}`}
+              {`${symbol}${prices[number].amount}`}
             </ProductContentPriceNumber>
             <AddToCartButton
               onClick={() => {
