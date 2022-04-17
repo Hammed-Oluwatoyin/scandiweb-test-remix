@@ -7,7 +7,9 @@ import { ApolloProvider } from "react-apollo";
 import { createHttpLink } from "apollo-link-http";
 import { InMemoryCache } from "apollo-cache-inmemory";
 import { ApolloClient } from "apollo-boost";
-import { CurrencyProvider } from "./Context/CurrencyContext";
+import { Provider } from "react-redux";
+import store from "./redux/store";
+
 import { resolvers, typeDefs } from "./resolvers";
 
 import reportWebVitals from "./reportWebVitals";
@@ -25,22 +27,12 @@ const client = new ApolloClient({
   resolvers,
 });
 
-client.writeData({
-  data: {
-    cartProducts: [],
-    cartTotal: 0,
-    productCount: 0,
-    cartDropdownHidden: false,
-    currencyDropdownHidden: false,
-  },
-});
-
 ReactDOM.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
-      <CurrencyProvider>
+      <Provider store={store}>
         <App />
-      </CurrencyProvider>
+      </Provider>
     </ApolloProvider>
   </React.StrictMode>,
   document.getElementById("root")

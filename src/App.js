@@ -1,73 +1,61 @@
 import React, { Component } from "react";
-import styled, { createGlobalStyle } from "styled-components";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { createGlobalStyle } from "styled-components";
+import CategoryPage from "./components/CategoryPage/CategoryPage";
+import Header from "./components/Header/Header";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
+import Backdrop from "./components/Backdrop/Backdrop";
+import CartPage from "./components/CartPage/CartPage";
 
-import ClothingPageContainer from "./components/clothes/clothes.container";
-import TechPageContainer from "./components/tech/tech.container";
-import ProductDisplayContainer from "./components/product-display-container/product-display.container";
-import AllPageContainer from "./components/all-page-container/all-page-container";
-import CartPageContainer from "./components/cart-page-container/cart-page-container";
+const GlobalStyle = createGlobalStyle`
+                                          body{
+    font-family: Raleway;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  padding: 0;
+}
 
-const Globalstyle = createGlobalStyle`
-                            body {
-                              
-                              min-height: 100vh;
-                              margin:0;
-                              color:black;
-                              font-family: Raleway;
-                              
-                            }
-`;
+p{
+    margin: 0;
+}
 
-const Content = styled.main`
-  margin: 80px auto 0 auto;
-  padding: 0 16px;
+ul{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    
+}
 
-  height: 1435px;
-
-  background: "#fff";
 `;
 
 class App extends Component {
   render() {
     return (
-      <React.Fragment>
-        <Content>
-          <Globalstyle />
+      <>
+        <GlobalStyle />
 
-          <BrowserRouter>
-            <Switch>
-              <Route
-                exact
-                path="/"
-                render={(props) => <AllPageContainer {...props} />}
-              />
-
-              <Route
-                exact
-                path="/tech"
-                render={(props) => <TechPageContainer {...props} />}
-              />
-              <Route
-                exact
-                path="/clothes"
-                render={(props) => <ClothingPageContainer {...props} />}
-              />
-
-              <Route
-                exact
-                path="/cart"
-                render={(props) => <CartPageContainer {...props} />}
-              />
-
-              <Route
-                path="/product/:id"
-                render={(props) => <ProductDisplayContainer {...props} />}
-              />
-            </Switch>
-          </BrowserRouter>
-        </Content>
-      </React.Fragment>
+        <BrowserRouter>
+          <Header />
+          <Switch>
+            <Route
+              exact
+              path="/:CategoryName"
+              render={(props) => <CategoryPage {...props} />}
+            />
+            <Route
+              exact
+              path="/cart"
+              // render={(props) => <CategoryPage {...props} />}
+              component={CartPage}
+            />
+          </Switch>
+        </BrowserRouter>
+      </>
     );
   }
 }
