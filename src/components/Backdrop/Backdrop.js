@@ -1,20 +1,38 @@
 import React, { Component } from "react";
 import styled from "styled-components";
+import { connect } from "react-redux";
+import { toggleHiddenCartModal } from "../../redux/action";
 
 const BackdropWrapper = styled.div`
-  width: 100%;
-  height: 100%;
-  position: relative;
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  z-index: 10;
 
-  left: 0;
-  top: 0;
   background-color: rgba(0, 0, 0, 0.5);
 `;
 
 class Backdrop extends Component {
   render() {
-    return <BackdropWrapper>Backdrop</BackdropWrapper>;
+    const { showCartModal, toggleHiddenCartModal } = this.props;
+    return (
+      <>
+        {showCartModal ? (
+          <BackdropWrapper onClick={toggleHiddenCartModal} />
+        ) : null}
+      </>
+    );
   }
 }
 
-export default Backdrop;
+const mapStateToProps = (state) => {
+  console.log(state);
+  return {
+    showCartModal: state.cartModalReducer.showCartModal,
+  };
+};
+const mapDispatchToProps = (dispatch) => ({
+  toggleHiddenCartModal: () => dispatch(toggleHiddenCartModal()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Backdrop);

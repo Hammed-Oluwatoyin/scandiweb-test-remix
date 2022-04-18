@@ -53,44 +53,15 @@ const IconWrapper = styled.div`
 `;
 
 class Nav extends Component {
-  state = {
-    showCurrencyModal: false,
-    showCartModal: false,
-  };
-
-  toggleCurrencyModal = () => {
-    this.setState((prev) => {
-      if (prev.showCartModal) {
-        return {
-          showCartModal: false,
-          showCurrencyModal: !prev.showCurrencyModal,
-        };
-      }
-      return { showCurrencyModal: !prev.showCurrencyModal };
-    });
-  };
-
-  toggleCartModal = () => {
-    this.setState((prev) => {
-      if (prev.showCurrencyModal) {
-        return {
-          showCurrencyModal: false,
-          showCartModal: !prev.showCartModal,
-        };
-      }
-      return { showCartModal: !prev.showCartModal };
-    });
-  };
-
   render() {
     const { location } = this.props;
-    console.log(location);
+
     return (
       <Query query={categoriesNameRequest()}>
         {({ loading, data, error }) => {
           if (loading) return <div>loading...</div>;
           if (error) return <p>Error : </p>;
-          console.log(data);
+
           const { categories } = data;
           return (
             <NavWrapper>
@@ -113,14 +84,8 @@ class Nav extends Component {
               </UnorderedList>
               <Logo />
               <IconWrapper>
-                <NavCurrencyButton
-                  showCurrencyModal={this.state.showCurrencyModal}
-                  toggleCurrencyModal={this.toggleCurrencyModal}
-                />
-                <NavCartButton
-                  showCartModal={this.state.showCartModal}
-                  toggleCartModal={this.toggleCartModal}
-                />
+                <NavCurrencyButton />
+                <NavCartButton />
               </IconWrapper>
             </NavWrapper>
           );

@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { createGlobalStyle } from "styled-components";
-import CategoryPage from "./components/CategoryPage/CategoryPage";
+import CategoryPage from "./pages/CategoryPage/CategoryPage";
 import Header from "./components/Header/Header";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Backdrop from "./components/Backdrop/Backdrop";
@@ -41,18 +41,13 @@ class App extends Component {
 
         <BrowserRouter>
           <Header />
+          <Backdrop />
           <Switch>
-            <Route
-              exact
-              path="/:CategoryName"
-              render={(props) => <CategoryPage {...props} />}
-            />
-            <Route
-              exact
-              path="/cart"
-              // render={(props) => <CategoryPage {...props} />}
-              component={CartPage}
-            />
+            {["/", "/:CategoryName"].map((path, index) => (
+              <Route path={path} exact component={CategoryPage} key={index} />
+            ))}
+
+            <Route exact path="/cart" component={CartPage} />
           </Switch>
         </BrowserRouter>
       </>

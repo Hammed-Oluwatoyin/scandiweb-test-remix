@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import { ReactComponent as CartIcon } from "../../assets/cart-icon.svg";
+import CartModal from "../CartModal/CartModal";
+import { connect } from "react-redux";
+import { toggleHiddenCartModal, closeCurrencyModal } from "../../redux/action";
 
 const CartButton = styled.button`
   position: absolute;
@@ -12,27 +15,22 @@ const CartButton = styled.button`
   cursor: pointer;
 `;
 
-const CartModal = styled.div`
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  width: 325px;
-
-  z-index: 20;
-  height: 540px;
-  background-color: #fff;
-  right: 2px;
-
-  box-shadow: 1px 1px 4px 0px rgba(0, 0, 0, 0.75);
-`;
-
 class NavCartButton extends Component {
+  toggleModals = () => {
+    if (this.props.showCurrencyModal) {
+      this.props.toggleHiddenCartModal();
+      this.props.closeCurrencyModal();
+    } else {
+      this.props.toggleHiddenCartModal();
+    }
+  };
+
   render() {
-    const { showCartModal, toggleCartModal } = this.props;
-    console.log(showCartModal);
+    const { showCartModal } = this.props;
+    console.log(this.props);
     return (
       <>
-        <CartButton onClick={() => toggleCartModal()}>
+        <CartButton onClick={() => this.toggleModals()}>
           <CartIcon />
           {showCartModal ? <CartModal /> : null}
         </CartButton>
@@ -41,4 +39,16 @@ class NavCartButton extends Component {
   }
 }
 
-export default NavCartButton;
+const mapStateToProps = (state) => {
+  console.log(state);
+  return {
+    showCartModal: state.cartModalReducer.showCartModal,
+    showCurrencyModal: state.currencyModalReducer.showCurrencyModal,
+  };
+};
+const mapDispatchToProps = (dispatch) => ({
+  toggleHiddenCartModal: () => dispatch(toggleHiddenCartModal()),
+  closeCurrencyModal: () => dispatch(closeCurrencyModal()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(NavCartButton);

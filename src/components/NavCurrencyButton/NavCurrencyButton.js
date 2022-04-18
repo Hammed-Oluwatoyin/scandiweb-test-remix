@@ -3,7 +3,11 @@ import { Query } from "react-apollo";
 import styled, { css } from "styled-components";
 import { currenciesRequest } from "../../services/graphql-requests";
 import { connect } from "react-redux";
-import { changeCurrency } from "../../redux/action";
+import {
+  changeCurrency,
+  toggleHiddenCurrencyModal,
+  closeCartModal,
+} from "../../redux/action";
 import { ReactComponent as ArrowUpIcon } from "../../assets/arrow-up-icon.svg";
 
 const NavCurrencyBtn = styled.button`
@@ -70,9 +74,18 @@ class NavCurrencyButton extends Component {
     this.props.onChangeCurrency(e.target.id);
   };
 
+  toggleModalss = () => {
+    if (this.props.showCartModal) {
+      this.props.closeCartModal();
+      this.props.toggleHiddenCurrencyModal();
+    } else {
+      this.props.toggleHiddenCurrencyModal();
+    }
+  };
+
   render() {
     console.log(this.props);
-    const { showCurrencyModal, toggleCurrencyModal } = this.props;
+    const { showCurrencyModal } = this.props;
     return (
       <Query query={currenciesRequest()}>
         {({ loading, data, error }) => {
@@ -82,7 +95,7 @@ class NavCurrencyButton extends Component {
           const { currencies } = data;
           console.log(currencies);
           return (
-            <NavCurrencyButtonWrapper onClick={() => toggleCurrencyModal()}>
+            <NavCurrencyButtonWrapper onClick={() => this.toggleModalss()}>
               <CurrencyIconAndArrowIconWrapper>
                 <NavCurrencyBtn>{this.props.currentCurrency}</NavCurrencyBtn>
                 <ArrowUpIcon />
@@ -116,11 +129,18 @@ class NavCurrencyButton extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-  currentCurrency: state.currencyReducer.currentCurrency,
-});
+const mapStateToProps = (state) => {
+  console.log(state);
+  return {
+    currentCurrency: state.currencyReducer.currentCurrency,
+    showCartModal: state.cartModalReducer.showCartModal,
+    showCurrencyModal: state.currencyModalReducer.showCurrencyModal,
+  };
+};
 const mapDispatchToProps = (dispatch) => ({
   onChangeCurrency: (currency) => dispatch(changeCurrency(currency)),
+  toggleHiddenCurrencyModal: () => dispatch(toggleHiddenCurrencyModal()),
+  closeCartModal: () => dispatch(closeCartModal()),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(NavCurrencyButton);

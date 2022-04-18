@@ -1,9 +1,5 @@
-import { createStore, combineReducers } from "redux";
-import currencyReducer from "./reducer";
-
-const rootReducer = combineReducers({
-  currencyReducer,
-});
+import { createStore } from "redux";
+import rootReducer from "./reducer";
 
 const store = createStore(
   rootReducer,
