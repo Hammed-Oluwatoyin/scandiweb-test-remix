@@ -27,7 +27,7 @@ class NavCartButton extends Component {
 
   render() {
     const { showCartModal } = this.props;
-    console.log(this.props);
+
     return (
       <>
         <CartButton onClick={() => this.toggleModals()}>
@@ -40,7 +40,6 @@ class NavCartButton extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state);
   return {
     showCartModal: state.cartModalReducer.showCartModal,
     showCurrencyModal: state.currencyModalReducer.showCurrencyModal,

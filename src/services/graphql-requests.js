@@ -24,6 +24,7 @@ const allProductsRequest = () => gql`
         prices {
           currency {
             label
+            symbol
           }
           amount
         }

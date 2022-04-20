@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Query } from "react-apollo";
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { currenciesRequest } from "../../services/graphql-requests";
 import { connect } from "react-redux";
 import {
@@ -9,6 +9,7 @@ import {
   closeCartModal,
 } from "../../redux/action";
 import { ReactComponent as ArrowUpIcon } from "../../assets/arrow-up-icon.svg";
+import { ReactComponent as ArrowDownIcon } from "../../assets/arrow-down-icon.svg";
 
 const NavCurrencyBtn = styled.button`
   position: relative;
@@ -71,6 +72,7 @@ const NavCurrencyButtonWrapper = styled.div`
 
 class NavCurrencyButton extends Component {
   selectCurrency = (e) => {
+    console.log(e.target.id);
     this.props.onChangeCurrency(e.target.id);
   };
 
@@ -84,32 +86,37 @@ class NavCurrencyButton extends Component {
   };
 
   render() {
-    console.log(this.props);
     const { showCurrencyModal } = this.props;
     return (
       <Query query={currenciesRequest()}>
         {({ loading, data, error }) => {
           if (loading) return <div>loading...</div>;
           if (error) return <p>Error : </p>;
-          console.log(data);
+
           const { currencies } = data;
-          console.log(currencies);
+
           return (
             <NavCurrencyButtonWrapper onClick={() => this.toggleModalss()}>
               <CurrencyIconAndArrowIconWrapper>
-                <NavCurrencyBtn>{this.props.currentCurrency}</NavCurrencyBtn>
-                <ArrowUpIcon />
+                <NavCurrencyBtn>
+                  {
+                    currencies.filter(
+                      (currency) =>
+                        currency.label === this.props.currentCurrency
+                    )[0].symbol
+                  }
+                </NavCurrencyBtn>
+                {showCurrencyModal ? <ArrowDownIcon /> : <ArrowUpIcon />}
               </CurrencyIconAndArrowIconWrapper>
               {showCurrencyModal ? (
                 <CurrencyModal>
                   <CurrencyOptionsWrapper>
                     {currencies &&
                       currencies.map((currency, index) => {
-                        console.log(currency);
                         return (
                           <CurrencyOption
                             key={currency.symbol}
-                            id={currency.symbol}
+                            id={currency.label}
                             onClick={this.selectCurrency}
                           >
                             {currency.symbol}
@@ -130,7 +137,6 @@ class NavCurrencyButton extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state);
   return {
     currentCurrency: state.currencyReducer.currentCurrency,
     showCartModal: state.cartModalReducer.showCartModal,

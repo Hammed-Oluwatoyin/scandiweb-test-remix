@@ -26,7 +26,6 @@ class Backdrop extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state);
   return {
     showCartModal: state.cartModalReducer.showCartModal,
   };

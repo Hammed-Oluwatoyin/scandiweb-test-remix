@@ -1,7 +1,7 @@
 import { combineReducers } from "redux";
 
 const INITIAL_STATE = {
-  currentCurrency: "$",
+  currentCurrency: "USD",
   showCartModal: false,
   showCurrencyModal: false,
 };
