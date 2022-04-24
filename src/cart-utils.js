@@ -39,12 +39,12 @@ export const getCartProductCount = (cartProducts) =>
     0
   );
 
-export const getCartTotal = (cartProducts, number) =>
+export const getCartTotal = (cartProducts) =>
   cartProducts
     .reduce(
       (accumalatedQuantity, cartProduct) =>
         accumalatedQuantity +
-        cartProduct.quantity * cartProduct.prices[number].amount,
+        cartProduct.quantity * cartProduct.prices[0].amount,
       0
     )
     .toFixed(2);

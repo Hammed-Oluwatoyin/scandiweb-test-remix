@@ -9,6 +9,7 @@ import CartPage from "./components/CartPage/CartPage";
 const GlobalStyle = createGlobalStyle`
                                           body{
     font-family: Raleway;
+    margin-top: 0;
 }
 h1,
 h2,
@@ -38,16 +39,27 @@ class App extends Component {
     return (
       <>
         <GlobalStyle />
-
+        <Backdrop />
         <BrowserRouter>
           <Header />
-          <Backdrop />
+
           <Switch>
+            {/* <Route
+              path="/:categoryName"
+              render={(props) => <CategoryPage {...props} />}
+            /> */}
+            <Route
+              exact
+              path="/cart"
+              render={(props) => <CartPage {...props} />}
+            />
             {["/", "/:CategoryName"].map((path, index) => (
               <Route path={path} exact component={CategoryPage} key={index} />
             ))}
 
-            <Route exact path="/cart" component={CartPage} />
+            {/* {["/", "/:CategoryName"].map((path, index) => (
+              <Route path={path} exact component={CategoryPage} key={index} />
+            ))} */}
           </Switch>
         </BrowserRouter>
       </>

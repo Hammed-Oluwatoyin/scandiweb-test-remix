@@ -5,14 +5,13 @@ import CartModal from "../CartModal/CartModal";
 import { connect } from "react-redux";
 import { toggleHiddenCartModal, closeCurrencyModal } from "../../redux/action";
 
-const CartButton = styled.button`
+const CartButton = styled.div`
   position: absolute;
   border: none;
   background-color: #fff;
   margin-left: 70px;
   margin-top: 5px;
   margin-bottom: 0px;
-  cursor: pointer;
 `;
 
 class NavCartButton extends Component {
@@ -32,8 +31,8 @@ class NavCartButton extends Component {
       <>
         <CartButton onClick={() => this.toggleModals()}>
           <CartIcon />
-          {showCartModal ? <CartModal /> : null}
         </CartButton>
+        {showCartModal ? <CartModal /> : null}
       </>
     );
   }

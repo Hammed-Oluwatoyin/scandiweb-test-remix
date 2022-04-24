@@ -72,7 +72,6 @@ const NavCurrencyButtonWrapper = styled.div`
 
 class NavCurrencyButton extends Component {
   selectCurrency = (e) => {
-    console.log(e.target.id);
     this.props.onChangeCurrency(e.target.id);
   };
 
@@ -102,7 +101,7 @@ class NavCurrencyButton extends Component {
                   {
                     currencies.filter(
                       (currency) =>
-                        currency.label === this.props.currentCurrency
+                        currency.symbol === this.props.currentCurrency
                     )[0].symbol
                   }
                 </NavCurrencyBtn>
@@ -116,7 +115,7 @@ class NavCurrencyButton extends Component {
                         return (
                           <CurrencyOption
                             key={currency.symbol}
-                            id={currency.label}
+                            id={currency.symbol}
                             onClick={this.selectCurrency}
                           >
                             {currency.symbol}

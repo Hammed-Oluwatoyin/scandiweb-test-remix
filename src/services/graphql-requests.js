@@ -71,7 +71,7 @@ const productAttributesRequest = (itemName) => gql`
                     gallery
                     prices {
                       amount
-                      currency
+                      currency{label}
                     }
                   }
                 }
@@ -92,7 +92,10 @@ const pricesRequest = () => gql`
       products {
         id
         prices {
-          currency
+          currency {
+            label
+            symbol
+          }
           amount
         }
       }

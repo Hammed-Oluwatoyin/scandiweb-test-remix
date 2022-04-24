@@ -1,9 +1,26 @@
 import { combineReducers } from "redux";
+import { addProductToCart } from "../cart-utils";
 
 const INITIAL_STATE = {
-  currentCurrency: "USD",
+  currentCurrency: "$",
   showCartModal: false,
   showCurrencyModal: false,
+  cartProducts: [],
+  cartTotalPrice: 0,
+  totalItemCount: 0,
+};
+
+const cartProductsReducer = (state = INITIAL_STATE, action) => {
+  switch (action.type) {
+    case "ADD_PRODUCT_TO_CART":
+      return {
+        ...state,
+        cartProducts: addProductToCart(state.cartProducts, action.payload),
+      };
+
+    default:
+      return state;
+  }
 };
 
 const currencyReducer = (state = INITIAL_STATE, action) => {
@@ -60,6 +77,7 @@ const rootReducer = combineReducers({
   currencyReducer,
   cartModalReducer,
   currencyModalReducer,
+  cartProductsReducer,
 });
 
 export default rootReducer;

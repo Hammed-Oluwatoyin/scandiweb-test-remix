@@ -22,3 +22,8 @@ export const closeCartModal = () => ({
   type: CartActionTypes.CLOSE_CART_MODAL,
   payload: false,
 });
+
+export const addProduct = (product) => ({
+  type: CartActionTypes.ADD_PRODUCT_TO_CART,
+  payload: product,
+});

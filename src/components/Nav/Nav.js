@@ -11,6 +11,8 @@ import NavCartButton from "../NavCartButton/NavCartButton";
 const NavWrapper = styled.div`
   display: flex;
   justify-content: space-between;
+
+  width: 100%;
 `;
 
 const UnorderedList = styled.ul`
@@ -18,10 +20,24 @@ const UnorderedList = styled.ul`
 `;
 const List = styled.li`
   font-size: 16px;
-  line-height: 120%;
+  line-height: 12px;
   color: #1d1f22;
   text-decoration: none;
   padding: 4px 16px 32px 16px;
+`;
+const CartBadge = styled.div`
+  width: 23px;
+  height: 23px;
+  border-radius: 50%;
+  background-color: #000;
+  color: #fff;
+  position: absolute;
+  right: 95px;
+  top: 20px;
+`;
+const BadgeNumber = styled.h5`
+  margin-left: 5px;
+  margin-top: 2px;
 `;
 
 const Link = ({ isActive, children, ...props }) => {
@@ -54,7 +70,7 @@ const IconWrapper = styled.div`
 
 class Nav extends Component {
   render() {
-    const { location } = this.props;
+    const { location, totalItemCount } = this.props;
 
     return (
       <Query query={categoriesNameRequest()}>
@@ -63,6 +79,7 @@ class Nav extends Component {
           if (error) return <p>Error : </p>;
 
           const { categories } = data;
+
           return (
             <NavWrapper>
               <UnorderedList>
@@ -87,6 +104,9 @@ class Nav extends Component {
                 <NavCurrencyButton />
                 <NavCartButton />
               </IconWrapper>
+              <CartBadge>
+                <BadgeNumber>{totalItemCount}</BadgeNumber>
+              </CartBadge>
             </NavWrapper>
           );
         }}
