@@ -28,7 +28,7 @@ class TotalCounter extends Component {
     const total = prices.reduce((acc, item, i) => {
       return acc + item * productQuantity[i];
     }, 0);
-    console.log(total);
+
     return total;
   };
 
@@ -40,7 +40,7 @@ class TotalCounter extends Component {
         {({ loading, error, data }) => {
           if (loading) return <p>Loading...</p>;
           if (error) return <p>Error : </p>;
-          console.log(data);
+
           const productId = cartProducts.map((product) => {
             return product.id;
           });

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
-import { addProduct } from "../../redux/action";
+import { addProduct, removeProduct } from "../../redux/action";
 import { ReactComponent as SquareMinusIcon } from "../../assets/minus-square-dropdown-icon.svg";
 import { ReactComponent as SquarePlusIcon } from "../../assets/plus-square-dropdown-icon.svg";
 
@@ -85,7 +85,7 @@ const ColorDisplayValue = styled.div`
 
 class CartModalItem extends Component {
   render() {
-    const { addProduct, product } = this.props;
+    const { addProduct, product, remove } = this.props;
 
     return product ? (
       <CartItemContainer>
@@ -106,13 +106,6 @@ class CartModalItem extends Component {
                 (price) => price.currency.symbol === this.props.currentCurrency
               )[0].amount
             }
-            {/* {product.prices.map(
-              (cur) =>
-                cur.currency === this.props.currentCurrency &&
-                `${cur.currency.symbol} ${
-                  Math.round(cur.amount * item.value * 100) / 100
-                }`
-            )} */}
           </Price>
           {product &&
             product.attributes.map((attr) => (
@@ -129,30 +122,23 @@ class CartModalItem extends Component {
                 </DisplayOptions>
               </DisplayValueContainer>
             ))}
-          {/* <SizeContainer>
-            <SizeTitle>Size :</SizeTitle>
-
-            <SizeTypes>
-              <SmallSizeIcon />
-              <MediumSizeIcon />
-            </SizeTypes>
-          </SizeContainer>
-          <ColorContainer>
-            <ColorTitle>Color :</ColorTitle>
-            <ColorTypes>
-              <Black />
-              <Blue />
-              <Yellow />
-            </ColorTypes>
-          </ColorContainer> */}
         </TitlePriceSizeContainer>
         <PlusQuantityMinusContainer>
-          <SqaurePlusIconWrapper onClick={() => addProduct(product)}>
+          <SqaurePlusIconWrapper
+            onClick={() => {
+              addProduct(product);
+            }}
+          >
             <SquarePlusIcon />
           </SqaurePlusIconWrapper>
 
           <QuantityNumberContainer>{product.quantity}</QuantityNumberContainer>
-          <SquareMinusIconWrapper>
+          <SquareMinusIconWrapper
+            onClick={() => {
+              console.log("remove Products");
+              removeProduct(product);
+            }}
+          >
             <SquareMinusIcon />
           </SquareMinusIconWrapper>
         </PlusQuantityMinusContainer>
@@ -169,6 +155,7 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = (dispatch) => ({
   addProduct: (product) => dispatch(addProduct(product)),
+  removeProduct: (product) => dispatch(removeProduct(product)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(CartModalItem);

@@ -1,5 +1,5 @@
 import { combineReducers } from "redux";
-import { addProductToCart } from "../cart-utils";
+import { addProductToCart, removeProductFromCart } from "../cart-utils";
 
 const INITIAL_STATE = {
   currentCurrency: "$",
@@ -16,6 +16,13 @@ const cartProductsReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         cartProducts: addProductToCart(state.cartProducts, action.payload),
+      };
+
+    case "REMOVE_PRODUCT_FROM_CART":
+      console.log(action.payload);
+      return {
+        ...state,
+        cartProducts: removeProductFromCart(state.cartProducts, action.payload),
       };
 
     default:

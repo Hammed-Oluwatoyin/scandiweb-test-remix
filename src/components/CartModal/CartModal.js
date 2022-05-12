@@ -2,9 +2,10 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import styled, { css } from "styled-components";
 import CartModalItem from "../CartModalItem/CartModalItem";
-import { addProduct } from "../../redux/action";
+import { addProduct, removeProduct } from "../../redux/action";
 import { getCartTotal, getCartProductCount } from "../../cart-utils";
 import TotalCounter from "../TotalCounter/TotalCounter";
+import { withRouter } from "react-router-dom";
 
 const CartModalWrapper = styled.div`
   position: absolute;
@@ -87,7 +88,8 @@ const Button = styled.button`
 
 class CartModal extends Component {
   render() {
-    const { currentCurrency, cartProducts, totalItemCount } = this.props;
+    const { currentCurrency, cartProducts, totalItemCount, removeProduct } =
+      this.props;
 
     return (
       <>
@@ -99,7 +101,13 @@ class CartModal extends Component {
           <CartItemsList>
             {this.props.cartProducts.map(
               (product) =>
-                product && <CartModalItem product={product} key={product.id} />
+                product && (
+                  <CartModalItem
+                    product={product}
+                    key={product.id}
+                    removeProduct={removeProduct}
+                  />
+                )
             )}
           </CartItemsList>
           <TotalItemsDescription>
@@ -112,7 +120,9 @@ class CartModal extends Component {
             </CartTotalPrice>
           </TotalItemsDescription>
           <ButtonsContainer>
-            <Button black>VIEWBAG</Button>
+            <Button black onClick={() => this.props.history.push("/cart")}>
+              VIEWBAG
+            </Button>
             <Button green>CHECKOUT</Button>
           </ButtonsContainer>
         </CartModalWrapper>
@@ -122,7 +132,6 @@ class CartModal extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state);
   return {
     cartProducts: state.cartProductsReducer.cartProducts,
     cartTotalPrice: getCartTotal(state.cartProductsReducer.cartProducts),
@@ -132,6 +141,10 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = (dispatch) => ({
   addProduct: (product) => dispatch(addProduct(product)),
+  removeProduct: (product) => dispatch(removeProduct(product)),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(CartModal);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(CartModal));

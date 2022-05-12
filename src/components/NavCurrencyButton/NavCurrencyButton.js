@@ -48,7 +48,8 @@ const CurrencyOptionsWrapper = styled.div`
 const CurrencyOption = styled.button`
   position: relative;
   padding: 0;
-  margin-bottom: 21px;
+  height: 45px;
+  border-radius: 10px;
   font-family: Raleway;
   font-style: normal;
   font-weight: bold;
@@ -56,6 +57,10 @@ const CurrencyOption = styled.button`
   line-height: 28.8px;
   border: none;
   background-color: #fff;
+  &:hover {
+    background-color: #5ece7b;
+    color: #fff;
+  }
   cursor: pointer;
   transition: all 250ms;
   z-index: 20;

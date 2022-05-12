@@ -10,11 +10,13 @@ export const addProductToCart = (cartProducts, cartProductToAdd) => {
         : cartProduct
     );
   }
+  console.log("addProduct");
 
   return [{ ...cartProductToAdd, quantity: 1 }, ...cartProducts];
 };
 
 export const removeProductFromCart = (cartProducts, cartProductToRemove) => {
+  console.log("click");
   const existingCartProduct = cartProducts.find(
     (cartProduct) => cartProduct.id === cartProductToRemove.id
   );

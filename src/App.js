@@ -4,7 +4,7 @@ import CategoryPage from "./pages/CategoryPage/CategoryPage";
 import Header from "./components/Header/Header";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Backdrop from "./components/Backdrop/Backdrop";
-import CartPage from "./components/CartPage/CartPage";
+import CartPage from "./pages/CartPage/CartPage";
 
 const GlobalStyle = createGlobalStyle`
                                           body{
