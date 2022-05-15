@@ -5,6 +5,7 @@ import Header from "./components/Header/Header";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Backdrop from "./components/Backdrop/Backdrop";
 import CartPage from "./pages/CartPage/CartPage";
+import ProductDisplayPage from "./pages/ProductDisplayPage/ProductDisplayPage";
 
 const GlobalStyle = createGlobalStyle`
                                           body{
@@ -44,10 +45,12 @@ class App extends Component {
           <Header />
 
           <Switch>
-            {/* <Route
-              path="/:categoryName"
-              render={(props) => <CategoryPage {...props} />}
-            /> */}
+            <Route
+              exact
+              path="/products/:productId"
+              render={(props) => <ProductDisplayPage {...props} />}
+            />
+
             <Route
               exact
               path="/cart"
@@ -56,10 +59,6 @@ class App extends Component {
             {["/", "/:CategoryName"].map((path, index) => (
               <Route path={path} exact component={CategoryPage} key={index} />
             ))}
-
-            {/* {["/", "/:CategoryName"].map((path, index) => (
-              <Route path={path} exact component={CategoryPage} key={index} />
-            ))} */}
           </Switch>
         </BrowserRouter>
       </>

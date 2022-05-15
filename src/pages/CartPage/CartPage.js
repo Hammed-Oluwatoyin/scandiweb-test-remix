@@ -2,8 +2,6 @@ import React, { Component } from "react";
 
 import styled, { css } from "styled-components";
 
-import { ReactComponent as SmallIcon } from "../../assets/small-size-cart-icon.svg";
-import { ReactComponent as MediumIcon } from "../../assets/medium-size-cart-icon.svg";
 import { ReactComponent as PlusCartPageIcon } from "../../assets/plus-square-cart-icon.svg";
 import { ReactComponent as MinusCartPageIcon } from "../../assets/minus-square-cart-icon.svg";
 import Slider from "../../components/slider/slider";
@@ -234,7 +232,10 @@ class CartPage extends Component {
                   <MinusCartPageIcon onClick={() => removeProduct(product)} />
                 </IncrementQuantityDecrement>
 
-                <Slider gallery={product.gallery} />
+                <Slider
+                  gallery={product.gallery}
+                  length={product.gallery.length}
+                />
               </IncrementQuantityDecrementImageCarouselWrapper>
             </Item>
           </CartItemContainer>

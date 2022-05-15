@@ -45,44 +45,15 @@ const Slide = styled.div`
   transition: 750ms all ease-in-out;
 `;
 
-const dataSlider = [
-  {
-    id: 1,
-    img: "https://images-na.ssl-images-amazon.com/images/I/510VSJ9mWDL._SL1262_.jpg",
-  },
-  {
-    id: 2,
-    img: "https://images-na.ssl-images-amazon.com/images/I/71vPCX0bS-L._SL1500_.jpg",
-  },
-  {
-    id: 3,
-    img: "https://store.storeimages.cdn-apple.com/4982/as-images.apple.com/is/imac-24-blue-selection-hero-202104?wid=904&hei=840&fmt=jpeg&qlt=80&.v=1617492405000",
-  },
-];
-
 class Slider extends Component {
   state = {
     slideIndex: 1,
   };
 
-  // timer() {
-  //   setInterval(() => {
-  //     this.nextSlide();
-  //   }, 5000);
-  // }
-
-  // componentDidMount() {
-  //   this.timer();
-  // }
-
-  // componentWillUnmount() {
-  //   clearInterval(this.timer);
-  // }
-
   nextSlide() {
-    if (this.state.slideIndex !== dataSlider.length) {
+    if (this.state.slideIndex !== this.props.gallery.length) {
       this.setState({ slideIndex: this.state.slideIndex + 1 });
-    } else if (this.state.slideIndex === dataSlider.length) {
+    } else if (this.state.slideIndex === this.props.gallery.length) {
       this.setState({ slideIndex: 1 });
     }
   }
@@ -91,7 +62,7 @@ class Slider extends Component {
     if (this.state.slideIndex !== 1) {
       this.setState({ slideIndex: this.state.slideIndex - 1 });
     } else if (this.state.slideIndex === 1) {
-      this.setState({ slideIndex: dataSlider.length });
+      this.setState({ slideIndex: this.props.gallery.length });
     }
   }
 

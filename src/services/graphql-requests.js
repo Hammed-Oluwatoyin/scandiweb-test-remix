@@ -104,7 +104,7 @@ const pricesRequest = () => gql`
 `;
 const productRequest = (productId) => gql`
         query {
-          product(id: "${productId}") {
+          product( id: "${productId}") {
             name
             inStock
             gallery
@@ -121,7 +121,9 @@ const productRequest = (productId) => gql`
             }
             prices {
               amount
-              currency
+              currency{
+                label
+              }
             }
             brand
           }

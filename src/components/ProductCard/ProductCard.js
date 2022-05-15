@@ -5,9 +5,9 @@ import { connect } from "react-redux";
 import { addProduct } from "../../redux/action";
 
 export const StyledCircleIcon = styled.div`
-  position: relative;
+  position: absolute;
   left: 300px;
-  bottom: 100px;
+  bottom: 80px;
   display: none;
 `;
 
@@ -26,7 +26,7 @@ const OutOfStock = styled.div`
 const Card = styled.div`
   width: 386px;
   height: 500px;
-  margin-bottom: 30px;
+
   /* ${OutOfStock} {
     z-index: 100;
     top: 45%;
@@ -37,6 +37,13 @@ const Card = styled.div`
     opacity: 0.3;
     transform: translate(-50%, -50%);
   } */
+`;
+const CardContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+
+  margin-bottom: 50px;
+  position: relative;
 
   &:hover {
     ${StyledCircleIcon} {
@@ -83,8 +90,10 @@ class ProductCard extends Component {
 
     return (
       product && (
-        <>
-          <Card>
+        <CardContainer>
+          <Card
+            onClick={() => this.props.history.push(`/products/${product.id}`)}
+          >
             {!product.inStock ? (
               <OutOfStock>OUT OF STOCK</OutOfStock>
             ) : (
@@ -108,13 +117,13 @@ class ProductCard extends Component {
                 )[0].amount
               }
             </ProductPrice>
-            {product.inStock ? (
-              <StyledCircleIcon onClick={() => addProduct(product)}>
-                <CircleIcon instock={product.inStock.toString()} />
-              </StyledCircleIcon>
-            ) : null}
           </Card>
-        </>
+          {product.inStock ? (
+            <StyledCircleIcon onClick={() => addProduct(product)}>
+              <CircleIcon instock={product.inStock.toString()} />
+            </StyledCircleIcon>
+          ) : null}
+        </CardContainer>
       )
     );
   }

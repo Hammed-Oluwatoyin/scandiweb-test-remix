@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { connect } from "react-redux";
 import { allProductsRequest } from "../../services/graphql-requests";
 import ProductCard from "../../components/ProductCard/ProductCard";
+import { withRouter } from "react-router-dom";
 
 const CategoryPageWrapper = styled.div`
   width: 100vw;
@@ -48,6 +49,7 @@ const CategoryContainer = styled.div``;
 
 class CategoryPage extends Component {
   render() {
+    console.log(this.props.history);
     return (
       <Query query={allProductsRequest()}>
         {({ loading, data, error }) => {
@@ -88,6 +90,7 @@ class CategoryPage extends Component {
                             {category.products.map((product) => {
                               return (
                                 <ProductCard
+                                  history={this.props.history}
                                   key={product.id}
                                   product={product}
                                   currentCurrency={this.props.currentCurrency}
@@ -116,4 +119,7 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = (dispatch) => ({});
 
-export default connect(mapStateToProps, mapDispatchToProps)(CategoryPage);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withRouter(CategoryPage));
